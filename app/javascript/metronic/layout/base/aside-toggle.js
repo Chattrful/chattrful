@@ -33,7 +33,6 @@ var KTLayoutAsideToggle = function() {
                 KTLayoutAsideMenu.pauseDropdownHover(800);
             }
 
-      console.log(toggle.getState())
             // Remember state in cookie
 			KTCookie.setCookie('kt_aside_toggle_state', toggle.getState());
 			// to set default minimized left aside use this cookie value in your

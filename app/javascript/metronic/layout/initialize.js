@@ -23,8 +23,9 @@ import KTLayoutQuickSearch from 'metronic/layout/extended/quick-search';
 import KTLayoutQuickCartPanel from 'metronic/layout/extended/quick-cart';
 import KTLayoutSearch from 'metronic/layout/extended/search';
 
-// Initialization
-KTUtil.ready(function() {
+document.addEventListener('turbolinks:load', function() {
+  // Initialization
+  KTUtil.ready(function() {
     ////////////////////////////////////////////////////
     // Layout Base Partials(mandatory for core layout)//
     ////////////////////////////////////////////////////
@@ -99,4 +100,5 @@ KTUtil.ready(function() {
 
     // Init Search For Quick Search Offcanvas Panel
     // KTLayoutSearchOffcanvas().init('kt_quick_search_offcanvas');
+  });
 });
