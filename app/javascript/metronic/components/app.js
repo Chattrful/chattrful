@@ -1,5 +1,7 @@
 "use strict";
 
+import KTUtil from 'metronic/components/util';
+
 // Component Definition
 var KTApp = function() {
     /** @type {object} colors State colors **/

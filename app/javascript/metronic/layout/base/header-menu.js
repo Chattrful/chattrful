@@ -1,6 +1,8 @@
 "use strict";
 
 import KTUtil from 'metronic/components/util';
+import KTOffcanvas from 'metronic/components/offcanvas';
+import KTMenu from 'metronic/components/menu';
 
 var KTLayoutHeaderMenu = function() {
     // Private properties

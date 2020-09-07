@@ -1,6 +1,7 @@
 "use strict";
 
 import KTUtil from 'metronic/components/util';
+import KTScrolltop from 'metronic/components/scrolltop';
 
 var KTLayoutScrolltop = function() {
     // Private properties

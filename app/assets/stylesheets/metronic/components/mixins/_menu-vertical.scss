@@ -83,7 +83,7 @@
 
 			&:before {
 				transition: get($item, link, arrow, transition);
-				@include ki(get($ki-types, arrowNext));
+				@include fas("\f054");
 
 				[direction="rtl"] & {
 					content: "#{get($ki-types, arrowBack)}" !important;

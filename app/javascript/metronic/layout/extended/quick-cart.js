@@ -1,6 +1,7 @@
 "use strict";
 
 import KTUtil from 'metronic/components/util';
+import KTOffcanvas from 'metronic/components/offcanvas';
 
 var KTLayoutQuickCartPanel = function() {
     // Private properties
