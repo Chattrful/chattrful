@@ -1,63 +1,86 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/my-app
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/boilerplate
     docker:
-      - image: cimg/ruby:2.7.1-node
+      - image: circleci/ruby:2.7.1
         environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
           BUNDLE_RETRY: 3
-          PGHOST: localhost
-          PGUSER: boilerplate
+          BUNDLER_VERSION: 2.0.1
           RAILS_ENV: test
-          REDIS_URL: redis://127.0.0.1:6379
-      - image: circleci/postgres:11-alpine
-      - image: circleci/redis:3.2-alpine
+          DB_HOST: 127.0.0.1
+          PG_HOST: 127.0.0.1
+          PGUSER: boilerplate
+      - image: circleci/postgres:12.0
+        environment:
+          POSTGRES_DB: boilerplate_test
+          POSTGRES_USER: boilerplate
+
+commands:
+  configure_bundler:
+    description: Configure bundler
     steps:
-      - checkout
-
-      # Install dependencies for Ruby Gems
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
       - run:
-          name: Configure Bundler
+          name: Configure bundler
           command: |
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
+
+jobs:
+  build:
+    executor: default
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - boilerplate_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - boilerplate_postgresql-
+      - configure_bundler
       - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-
-      - save_cache:
-          key: my-app-bundle-v1-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      # Preparing database
+          name: Install bundle
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
-
       - run:
-          name: Database setup
-          command: bin/rails db:create db:schema:load --trace
-
-      # Run test suits
+          name: Setup DB
+          command: bundle exec rails db:create db:schema:load --trace
       - run:
-          name: Run rubocop in parallel
-          command: bundle exec rubocop --parallel --config .rubocop.yml
-
-      - run:
-          name: Run rspec in parallel
+          name: RSpec
           command: |
             bundle exec rspec --profile 10 \
-                             --format RspecJunitFormatter \
-                             --out /tmp/test-results/rspec.xml \
-                             --format progress \
-                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      # Save artifacts
-      - store_test_results:
-          path: /tmp/test-results
+                              --format progress
+      - store_artifacts:
+          path: coverage
+      - save_cache:
+          key: boilerplate_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./boilerplate_postgresql
+
+
+rubocop:
+  executor: default
+  steps:
+    - attach_workspace:
+        at: ~/
+    - configure_bundler
+    - run:
+        name: Rubocop
+        command: bundle exec rubocop
+
+workflows:
+  version: 2
+  integration:
+    jobs:
+      - build
+      - rubocop:
+          requires:
+            - build
