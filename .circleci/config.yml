@@ -65,16 +65,15 @@ jobs:
           paths:
             - ./boilerplate_postgresql
 
-
-rubocop:
-  executor: default
-  steps:
-    - attach_workspace:
-        at: ~/
-    - configure_bundler
-    - run:
-        name: Rubocop
-        command: bundle exec rubocop
+  rubocop:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
 
 workflows:
   version: 2
