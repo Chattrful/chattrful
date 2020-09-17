@@ -33,12 +33,21 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - boilerplate_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - boilerplate_postgresql-
-      - configure_bundler
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
       - run:
-          name: Install bundle
-          command: bundle install
+          name: install dependencies
+          command: |
+            curl -o- -L https://yarnpkg.com/install.sh | bash
+            yarn global add sass
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            yarn
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+            - ~/.cache/yarn
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
