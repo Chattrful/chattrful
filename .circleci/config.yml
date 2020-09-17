@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: ~/boilerplate
     docker:
-      - image: circleci/ruby:2.7.1
+      - image: circleci/ruby:2.7.1-node-browsers
         environment:
           RAILS_ENV: test
           PGHOST: localhost
@@ -45,6 +45,7 @@ jobs:
       - run:
           name: Setup DB
           command: bundle exec rails db:create
+          # command: bundle exec rake db:schema:load
       - run:
           name: RSpec
           command: |
@@ -70,6 +71,15 @@ jobs:
       - run:
           name: Rubocop
           command: bundle exec rubocop
+  brakeman:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Brakeman
+          command: bundle exec brakeman
 
 workflows:
   version: 2
@@ -77,5 +87,8 @@ workflows:
     jobs:
       - build
       - rubocop:
+          requires:
+            - build
+      - brakeman:
           requires:
             - build
