@@ -95,6 +95,26 @@ jobs:
           name: Brakeman
           command: bundle exec brakeman
 
+  fasterer:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Fasterer
+          command: bundle exec fasterer
+
+  rails_best_practices:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Rails Best Practices
+          command: bundle exec rails_best_practices
+
 workflows:
   version: 2
   integration:
@@ -104,5 +124,11 @@ workflows:
           requires:
             - build
       - brakeman:
+          requires:
+            - build
+      - fasterer:
+          requires:
+            - build
+      - rails_best_practices:
           requires:
             - build
