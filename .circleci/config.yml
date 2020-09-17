@@ -18,6 +18,7 @@ executors:
         environment:
           POSTGRES_DB: boilerplate_test
           POSTGRES_USER: boilerplate
+          POSTGRES_PASSWORD: ""
 
 commands:
   configure_bundler:
