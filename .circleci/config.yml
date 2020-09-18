@@ -89,9 +89,10 @@ jobs:
       - configure_bundler
       - run:
           name: Rubocop
-          command: gem install bundler
-          command: bundle install
-          command: bundle exec rubocop
+          command: |
+            gem install bundler
+            bundle install
+            bundle exec rubocop
   brakeman:
     executor: default
     steps:
@@ -100,9 +101,10 @@ jobs:
       - configure_bundler
       - run:
           name: Brakeman
-          command: gem install bundler
-          command: bundle install
-          command: bundle exec brakeman
+          command: |
+            gem install bundler
+            bundle install
+            bundle exec brakeman
 
   fasterer:
     executor: default
@@ -112,9 +114,10 @@ jobs:
       - configure_bundler
       - run:
           name: Fasterer
-          command: gem install bundler
-          command: bundle install
-          command: bundle exec fasterer
+          command: |
+            gem install bundler
+            bundle install
+            bundle exec fasterer
 
   rails_best_practices:
     executor: default
@@ -124,9 +127,10 @@ jobs:
       - configure_bundler
       - run:
           name: Rails Best Practices
-          command: gem install bundler
-          command: bundle install
-          command: bundle exec rails_best_practices
+          command: |
+            gem install bundler
+          bundle install
+          bundle exec rails_best_practices
 
 workflows:
   version: 2
