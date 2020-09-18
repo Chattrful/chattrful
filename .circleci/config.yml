@@ -85,7 +85,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/home/circleci/boilerplate
       - configure_bundler
       - run:
           name: Rubocop
@@ -97,7 +97,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/home/circleci/boilerplate
       - configure_bundler
       - run:
           name: Brakeman
@@ -110,7 +110,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/home/circleci/boilerplate
       - configure_bundler
       - run:
           name: Fasterer
@@ -123,7 +123,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/home/circleci/boilerplate
       - configure_bundler
       - run:
           name: Rails Best Practices
