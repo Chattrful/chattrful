@@ -80,64 +80,60 @@ jobs:
           key: boilerplate_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./boilerplate_postgresql
 
-  # rubocop:
-  #   executor: default
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - configure_bundler
-  #     - run:
-  #         name: Rubocop
-  #         command: bundle exec rubocop
-  # brakeman:
-  #   executor: default
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - configure_bundler
-  #     - run:
-  #         name: Brakeman
-  #         command: bundle exec brakeman
+  rubocop:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+  brakeman:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Brakeman
+          command: bundle exec brakeman
 
-  # fasterer:
-  #   executor: default
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - configure_bundler
-  #     - run:
-  #         name: Fasterer
-  #         command: bundle exec fasterer
+  fasterer:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Fasterer
+          command: bundle exec fasterer
 
-  # rails_best_practices:
-  #   executor: default
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - configure_bundler
-  #     - run:
-  #         name: Rails Best Practices
-  #         command: bundle exec rails_best_practices
+  rails_best_practices:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - configure_bundler
+      - run:
+          name: Rails Best Practices
+          command: bundle exec rails_best_practices
 
 workflows:
   version: 2
   integration:
     jobs:
       - build
-      # - rubocop:
-      #     requires:
-      #       - build
-      # - brakeman:
-      #     requires:
-      #       - build
-      # - fasterer:
-      #     requires:
-      #       - build
-      # - rails_best_practices:
-      #     requires:
-      #       - build
+      - rubocop:
+          requires:
+            - build
+      - brakeman:
+          requires:
+            - build
+      - fasterer:
+          requires:
+            - build
+      - rails_best_practices:
+          requires:
+            - build
