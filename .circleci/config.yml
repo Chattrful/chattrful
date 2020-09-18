@@ -93,7 +93,9 @@ jobs:
       - configure_bundler
       - run:
           name: Rubocop
-          command: bundle exec rubocop
+          command: |
+            bundle install
+            bundle exec rubocop
   # brakeman:
   #   executor: default
   #   steps:
