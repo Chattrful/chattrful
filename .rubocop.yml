@@ -3,15 +3,6 @@ require:
   - rubocop-rails
   - rubocop-rspec
 
-AllCops:
-  Exclude:
-    - 'db/**/*'
-    - 'script/**/*'
-    - 'bin/**/*'
-
-Metrics/LineLength:
-  Max: 100
-
 Metrics/BlockLength:
   Exclude:
     - config/**/*
@@ -23,3 +14,6 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+
+AllCops:
+  NewCops: enable
