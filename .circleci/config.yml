@@ -129,8 +129,8 @@ jobs:
           name: Rails Best Practices
           command: |
             gem install bundler
-          bundle install
-          bundle exec rails_best_practices
+            bundle install
+            bundle exec rails_best_practices
 
 workflows:
   version: 2
