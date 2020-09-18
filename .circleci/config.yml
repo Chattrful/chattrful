@@ -100,12 +100,11 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/home/circleci/boilerplate
+          at: ~/
       - configure_bundler
       - run:
           name: Brakeman
           command: |
-            gem install bundler
             bundle install
             bundle exec brakeman
 
@@ -113,12 +112,11 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/home/circleci/boilerplate
+          at: ~/
       - configure_bundler
       - run:
           name: Fasterer
           command: |
-            gem install bundler
             bundle install
             bundle exec fasterer
 
@@ -126,12 +124,11 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-          at: ~/home/circleci/boilerplate
+          at: ~/
       - configure_bundler
       - run:
           name: Rails Best Practices
           command: |
-            gem install bundler
             bundle install
             bundle exec rails_best_practices
 
