@@ -2,17 +2,17 @@ version: 2.1
 
 executors:
   default:
-    working_directory: ~/boilerplate
+    working_directory: ~/chattr
     docker:
       - image: circleci/ruby:2.7.1-node-browsers
         environment:
           RAILS_ENV: test
           PGHOST: localhost
-          PGUSER: boilerplate
+          PGUSER: chattr
       - image: circleci/postgres:12.0
         environment:
-          POSTGRES_DB: boilerplate_test
-          POSTGRES_USER: boilerplate
+          POSTGRES_DB: chattr_test
+          POSTGRES_USER: chattr
           POSTGRES_PASSWORD: ""
 
 commands:
@@ -77,13 +77,13 @@ jobs:
       - store_artifacts:
           path: coverage
       - save_cache:
-          key: boilerplate_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: chattr_postgresql-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - persist_to_workspace:
           root: ~/
           paths:
-            - ./boilerplate
+            - ./chattr
 
   rubocop:
     executor: default
