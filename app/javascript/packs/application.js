@@ -10,7 +10,6 @@ require("channels")
 
 import 'bootstrap';
 import autosize from 'autosize';
-import PerfectScrollbar from 'perfect-scrollbar';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -21,9 +20,22 @@ import PerfectScrollbar from 'perfect-scrollbar';
 
 require('metronic/components/app');
 require('metronic/layout/initialize');
+import { EmojiButton } from '@joeattardi/emoji-button';
 
 $(document).ready(function() {
   autosize($('.js-chatbox'));
+
+  const picker = new EmojiButton();
+
+  const trigger = document.querySelector('.js-emoji-trigger');
+
+  picker.on('emoji', selection => {
+    // handle the selected emoji here
+    console.log(selection.emoji);
+  });
+
+  trigger.addEventListener('click', () => picker.togglePicker(trigger));
+
 
   $('.js-chatbox').on('keypress', function(event) {
     var val = $(this).val();
