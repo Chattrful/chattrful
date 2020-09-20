@@ -9,6 +9,9 @@ require("@rails/activestorage").start()
 require("channels")
 
 import 'bootstrap';
+import autosize from 'autosize';
+import PerfectScrollbar from 'perfect-scrollbar';
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -18,3 +21,31 @@ import 'bootstrap';
 
 require('metronic/components/app');
 require('metronic/layout/initialize');
+
+$(document).ready(function() {
+  autosize($('.js-chatbox'));
+
+  $('.js-chatbox').on('keypress', function(event) {
+    var val = $(this).val();
+
+    if (event.keyCode == 32 || event.keyCode == 13) {
+      if (val.length < 1) {
+        event.preventDefault();
+        return;
+      }
+    }
+
+    if (event.keyCode == 13) {
+      if (!event.shiftKey) {
+        handleSubmit(val);
+        event.preventDefault()
+      }
+    }
+  });
+
+  const handleSubmit = (message) => {
+    console.log(message);
+    $('.js-chatbox').val('');
+    $('.js-chatbox').css('height', 'initial');
+  }
+})
