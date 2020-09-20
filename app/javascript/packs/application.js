@@ -23,41 +23,71 @@ require('metronic/layout/initialize');
 import { EmojiButton } from '@joeattardi/emoji-button';
 
 $(document).ready(function() {
-  autosize($('.js-chatbox'));
+  const chatboxTextarea = document.querySelector('.js-chatbox');
+  autosize(chatboxTextarea);
 
-  const picker = new EmojiButton();
-
-  const trigger = document.querySelector('.js-emoji-trigger');
-
-  picker.on('emoji', selection => {
-    // handle the selected emoji here
-    console.log(selection.emoji);
-  });
-
-  trigger.addEventListener('click', () => picker.togglePicker(trigger));
-
-
-  $('.js-chatbox').on('keypress', function(event) {
-    var val = $(this).val();
-
+  chatboxTextarea.addEventListener('keypress', event => {
+    // When enter or space is pressed
     if (event.keyCode == 32 || event.keyCode == 13) {
-      if (val.length < 1) {
+      if (event.target.value.length < 1) {
         event.preventDefault();
         return;
       }
     }
 
+    // When enter is pressed
     if (event.keyCode == 13) {
+      // If shift is pressed, don't submit
       if (!event.shiftKey) {
-        handleSubmit(val);
-        event.preventDefault()
+        handleSubmit();
+        event.preventDefault();
       }
     }
   });
 
-  const handleSubmit = (message) => {
-    console.log(message);
-    $('.js-chatbox').val('');
-    $('.js-chatbox').css('height', 'initial');
+  chatboxTextarea.addEventListener('blur', event => {
+    event.target.dataset.selectionStart = event.target.selectionStart;
+  });
+
+  const chatboxSubmitButton = document.querySelector('.js-chatbox-submit');
+  chatboxSubmitButton.addEventListener('click', event => {
+    handleSubmit();
+  });
+
+  const emojiPicker = new EmojiButton();
+  const emojiTrigger = document.querySelector('.js-emoji-trigger');
+
+  emojiPicker.on('emoji', selection => {
+    const chatboxTextarea = document.querySelector('.js-chatbox');
+
+    const content = chatboxTextarea.value;
+    const emoji = selection.emoji;
+    const position = parseInt(chatboxTextarea.dataset.selectionStart)
+
+    const newContent = insertAt(content, emoji, position);
+
+    chatboxTextarea.value = newContent;
+
+    setTimeout(function(){
+      chatboxTextarea.focus();
+      chatboxTextarea.selectionEnd = position + emoji.length
+    }, 250);
+  });
+
+  emojiTrigger.addEventListener('click', () => emojiPicker.togglePicker(emojiTrigger));
+
+  const handleSubmit = () => {
+    const chatboxTextarea = document.querySelector('.js-chatbox');
+    const content = chatboxTextarea.value;
+
+    if (content.length > 0) {
+      console.log(content);
+      chatboxTextarea.value = '';
+      chatboxTextarea.style.height = 'initial';
+    } else {
+      event.preventDefault();
+    }
   }
+
+  const insertAt = (string, substring, position) => `${string.slice(0, position)}${substring}${string.slice(position)}`;
 })
