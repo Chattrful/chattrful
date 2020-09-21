@@ -35,7 +35,7 @@ $dark-gray: #7E8299;
 
 .chat-messages {
   padding: $default-padding;
-  padding-bottom: calc(0.75rem + 65px);
+  padding-bottom: calc(#{$default-padding} + 65px);
 }
 
 .chat-message {
