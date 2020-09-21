@@ -62,13 +62,13 @@ $(document).ready(function() {
 
     const content = chatboxTextarea.value;
     const emoji = selection.emoji;
-    const position = parseInt(chatboxTextarea.dataset.selectionStart)
+    const position = parseInt(chatboxTextarea.dataset.selectionStart);
 
     const newContent = insertAt(content, emoji, position);
 
     chatboxTextarea.value = newContent;
 
-    setTimeout(function(){
+    setTimeout(() => {
       chatboxTextarea.focus();
       chatboxTextarea.selectionEnd = position + emoji.length
     }, 250);
@@ -81,7 +81,7 @@ $(document).ready(function() {
     const content = chatboxTextarea.value;
 
     if (content.length > 0) {
-      console.log(content);
+      appendContent(content);
       chatboxTextarea.value = '';
       chatboxTextarea.style.height = 'initial';
     } else {
@@ -90,4 +90,17 @@ $(document).ready(function() {
   }
 
   const insertAt = (string, substring, position) => `${string.slice(0, position)}${substring}${string.slice(position)}`;
+
+  const appendContent = (content) => {
+    const chatMessage = document.createElement('div');
+    chatMessage.className = 'chat__message chat__message--mine';
+
+    const chatMessageText = document.createElement('div');
+    chatMessageText.className = 'chat__message-text';
+    chatMessageText.innerText = content;
+
+    chatMessage.appendChild(chatMessageText);
+
+    document.querySelector('.card-body').appendChild(chatMessage);
+  }
 })

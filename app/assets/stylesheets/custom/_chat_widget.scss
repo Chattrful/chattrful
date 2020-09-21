@@ -1,8 +1,52 @@
+.chat {
+  height: 100%;
+  background: white;
+
+  &__message {
+    display: flex;
+    flex-direction: column;
+
+    &--mine {
+      align-items: flex-end;
+
+      .chat__message-text {
+        background-color: #E1F0FF;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &--other {
+      align-items: flex-start;
+
+      .chat__message-text {
+        background-color: #f6f6f6;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  &__message-text {
+    max-width: 65%;
+    padding: 0.75rem;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    border-radius: 0.42rem;
+
+    @media screen and (max-width: 1024px) and (min-width: 901px) {
+      max-width: 80%;
+    }
+
+    @media screen and (max-width: 900px) {
+      max-width: 90%;
+    }
+  }
+}
+
 .chat-widget {
   height: 100%;
 
   .card-body {
-    background: $page-bg;
+    // background: $page-bg;
   }
 
   .chatbox {
