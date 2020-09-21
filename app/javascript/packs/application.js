@@ -93,14 +93,14 @@ $(document).ready(function() {
 
   const appendContent = (content) => {
     const chatMessage = document.createElement('div');
-    chatMessage.className = 'chat__message chat__message--mine';
+    chatMessage.className = 'chat-message chat-message--mine';
 
     const chatMessageText = document.createElement('div');
-    chatMessageText.className = 'chat__message-text';
+    chatMessageText.className = 'chat-message__text';
     chatMessageText.innerText = content;
 
     chatMessage.appendChild(chatMessageText);
 
-    document.querySelector('.card-body').appendChild(chatMessage);
+    document.querySelector('.js-chat-messages').appendChild(chatMessage);
   }
 })
