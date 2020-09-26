@@ -9,13 +9,6 @@ Bundler.require(*Rails.groups)
 module Chattr
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
-    config.hosts = [
-      IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
-      IPAddr.new("::/0"),      # All IPv6 addresses.
-      "localhost"
-    ]
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
