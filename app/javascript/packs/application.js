@@ -54,7 +54,9 @@ $(document).ready(function() {
     handleSubmit();
   });
 
-  const emojiPicker = new EmojiButton();
+  const emojiPicker = new EmojiButton({
+    showPreview: false
+  });
   const emojiTrigger = document.querySelector('.js-emoji-trigger');
 
   emojiPicker.on('emoji', selection => {
@@ -87,7 +89,7 @@ $(document).ready(function() {
     } else {
       event.preventDefault();
     }
-  }
+  };
 
   const insertAt = (string, substring, position) => `${string.slice(0, position)}${substring}${string.slice(position)}`;
 
@@ -102,5 +104,5 @@ $(document).ready(function() {
     chatMessage.appendChild(chatMessageText);
 
     document.querySelector('.js-chat-messages').appendChild(chatMessage);
-  }
+  };
 })
