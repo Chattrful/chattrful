@@ -86,6 +86,7 @@ $(document).ready(function() {
       appendContent(content);
       chatboxTextarea.value = '';
       chatboxTextarea.style.height = 'initial';
+      scrollToBottom()
     } else {
       event.preventDefault();
     }
@@ -105,4 +106,13 @@ $(document).ready(function() {
 
     document.querySelector('.js-chat-messages').appendChild(chatMessage);
   };
+
+
+  const scrollToBottom = () => {
+    const chatMessages = document.querySelector('.chat-messages');
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  scrollToBottom();
 })

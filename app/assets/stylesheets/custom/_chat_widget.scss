@@ -108,7 +108,6 @@ $dark-gray: #7E8299;
 
 .chat-messages {
   padding: $default-padding;
-  z-index: 1;
   flex: 1 1 0;
   order: 2;
   overflow-x: hidden;
@@ -160,7 +159,6 @@ $dark-gray: #7E8299;
 }
 
 footer {
-  z-index: 1;
   flex: none;
   order: 3;
   box-sizing: border-box;
