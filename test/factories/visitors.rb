@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :participant do
+  factory :visitor do
     email { "MyString" }
   end
 end

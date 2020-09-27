@@ -1,5 +1,12 @@
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+
 import autosize from 'autosize';
 import { EmojiButton } from '@joeattardi/emoji-button';
+import Rails from "@rails/ujs"
+
+Rails.start()
 
 $(document).ready(function() {
   const chatboxTextarea = document.querySelector('.js-chatbox');
@@ -66,6 +73,7 @@ $(document).ready(function() {
 
     if (content.length > 0) {
       appendContent(content);
+      Rails.fire(document.querySelector('.js-chatbox-form'), 'submit');
       chatboxTextarea.value = '';
       chatboxTextarea.style.height = 'initial';
       scrollToBottom();

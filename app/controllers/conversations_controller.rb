@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-class ConversationsController < ApplicationController
-  layout 'chat_widget'
-
+class ConversationsController < ChatWidgetController
   def index
-    @account = Account.find_or_create_by({})
-    @converation = Conversation.find_or_create_by(account: @account)
+    @messages = @conversation.messages.order(created_at: :desc).reverse
   end
 end

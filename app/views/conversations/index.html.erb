@@ -8,41 +8,35 @@
       </div>
     </div>
     <div>
-      <button type="button" class="btn-icon btn-icon--close">
+      <button tabindex="-1" type="button" class="btn-icon btn-icon--close">
         <svg class="icon-svg" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-l</title><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/></svg>
       </button>
     </div>
   </header>
 
   <div class="chat-messages js-chat-messages">
-    <% 20.times do %>
-      <% ran = rand(0..1) %>
-      <div class="chat-messages__item <%= ran == 0 ? 'chat-messages__item--mine' : 'chat-messages__item--other' %>">
-        <div class="chat-messages__item-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    <% @messages.each do |message| %>
+      <div tabindex="-1" class="chat-messages__item <%= message.sender == @visitor ? 'chat-messages__item--mine' : 'chat-messages__item--other' %>">
+        <div tabindex="-1" class="chat-messages__item-text">
+          <%= message.content %>
         </div>
       </div>
     <% end %>
   </div>
 
   <footer class="chat-widget__footer">
-    <div class="chatbox">
+    <%= form_with model: Message.new, url: ajax_conversation_messages_path(@conversation, format: :js), html: { class: 'js-chatbox-form chatbox' }, local: false do |f| %>
       <button tabindex="-1" type="button" class="js-emoji-trigger btn-icon btn-icon--smiley">
         <svg class="icon-svg" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-i</title><circle cx='184' cy='232' r='24'/><path d='M256.05,384c-45.42,0-83.62-29.53-95.71-69.83A8,8,0,0,1,168.16,304H343.85a8,8,0,0,1,7.82,10.17C339.68,354.47,301.47,384,256.05,384Z'/><circle cx='328' cy='232' r='24'/><circle cx='256' cy='256' r='208'/></svg>
       </button>
 
       <div class="chatbox__input-wrapper">
-        <textarea tabindex="1"
-                  data-selection-start="0"
-                  class="js-chatbox chatbox__input"
-                  rows="1"
-                  placeholder="Type a message"
-                  ></textarea>
+        <%= f.text_area :content, class: 'js-chatbox chatbox__input', rows: 1, data: { selection_start: 0 }, placeholder: 'Type a message', tabindex: '-1' %>
       </div>
 
       <button tabindex="2" type="button" class="js-chatbox-submit btn-icon btn-icon--send">
         <svg class="icon-svg" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-q</title><path d='M470.3,271.15,43.16,447.31a7.83,7.83,0,0,1-11.16-7V327a8,8,0,0,1,6.51-7.86l247.62-47c17.36-3.29,17.36-28.15,0-31.44l-247.63-47a8,8,0,0,1-6.5-7.85V72.59c0-5.74,5.88-10.26,11.16-8L470.3,241.76A16,16,0,0,1,470.3,271.15Z'/></svg>
       </button>
-    </div>
+    <% end %>
   </footer>
 </div>
