@@ -1,0 +1,28 @@
+.chat-widget {
+  background: white;
+  font-family: $font-family;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  font-size: $font-size;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding:  $default-padding;
+    border-bottom: 1px solid $card-border-color;
+    background: $white;
+
+    &-details {
+      flex-grow: 1;
+    }
+  }
+
+  &__footer {
+    flex: none;
+    order: 3;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}

@@ -1,0 +1,43 @@
+.chatbox {
+  background: white;
+  padding: $default-padding;
+  display: flex;
+  align-items: flex-end;
+  border-top: 1px solid $card-border-color;
+
+  &__icon-svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__input-wrapper {
+    flex-grow: 1;
+  }
+
+  &__input {
+    overflow: auto;
+    resize: vertical;
+    display: block;
+    max-height: 100px;
+    position: relative;
+    overflow:hidden;
+    background-color: $gray-100;
+    padding-left: $default-padding;
+    padding-right: $default-padding;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 100%;
+    font-size: $font-size;
+    font-family: $font-family;
+    line-height: 1.5;
+    color: $font-color;
+    background-clip: padding-box;
+    border-radius: 20px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    margin: 0;
+
+    @extend .scrollbar;
+  }
+}

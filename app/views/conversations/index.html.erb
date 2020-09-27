@@ -1,12 +1,6 @@
-<style>
-  body {
-    background: white;
-  }
-</style>
-
-<div class="chat">
-  <div class="chat-header">
-    <div class="chat-header__details">
+<div class="chat-widget">
+  <header class="chat-widget__header">
+    <div class="chat-widget__header-details">
       <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
       <div>
         <span class="label label-dot label-success"></span>
@@ -18,20 +12,20 @@
         <svg class="icon-svg" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-l</title><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/></svg>
       </button>
     </div>
-  </div>
+  </header>
 
   <div class="chat-messages js-chat-messages">
     <% 20.times do %>
       <% ran = rand(0..1) %>
-      <div class="chat-message <%= ran == 0 ? 'chat-message--mine' : 'chat-message--other' %>">
-        <div class="chat-message__text">
+      <div class="chat-messages__item <%= ran == 0 ? 'chat-messages__item--mine' : 'chat-messages__item--other' %>">
+        <div class="chat-messages__item-text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div>
       </div>
     <% end %>
   </div>
 
-  <footer>
+  <footer class="chat-widget__footer">
     <div class="chatbox">
       <button tabindex="-1" type="button" class="js-emoji-trigger btn-icon btn-icon--smiley">
         <svg class="icon-svg" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-i</title><circle cx='184' cy='232' r='24'/><path d='M256.05,384c-45.42,0-83.62-29.53-95.71-69.83A8,8,0,0,1,168.16,304H343.85a8,8,0,0,1,7.82,10.17C339.68,354.47,301.47,384,256.05,384Z'/><circle cx='328' cy='232' r='24'/><circle cx='256' cy='256' r='208'/></svg>

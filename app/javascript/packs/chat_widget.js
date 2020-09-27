@@ -34,7 +34,10 @@ $(document).ready(function() {
   });
 
   const emojiPicker = new EmojiButton({
-    showPreview: false
+    showPreview: false,
+    emojiSize: '25px',
+    emojisPerRow: 9,
+    showRecents: false
   });
   const emojiTrigger = document.querySelector('.js-emoji-trigger');
 
@@ -77,10 +80,10 @@ $(document).ready(function() {
 
   const appendContent = (content) => {
     const chatMessage = document.createElement('div');
-    chatMessage.className = 'chat-message chat-message--mine';
+    chatMessage.className = 'chat-messages__item chat-messages__item--mine';
 
     const chatMessageText = document.createElement('div');
-    chatMessageText.className = 'chat-message__text';
+    chatMessageText.className = 'chat-messages__item-text';
     chatMessageText.innerText = content;
 
     chatMessage.appendChild(chatMessageText);
