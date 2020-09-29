@@ -8,7 +8,7 @@ import Rails from "@rails/ujs"
 
 Rails.start()
 
-$(document).ready(function() {
+document.addEventListener("turbolinks:load", () => {
   const chatboxTextarea = document.querySelector('.js-chatbox');
   autosize(chatboxTextarea);
 

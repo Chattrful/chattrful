@@ -10,6 +10,7 @@ class ChatWidgetController < ActionController::Base
     @account = Account.find_or_create_by({})
     @conversation = Conversation.find_or_create_by(account: @account)
     session[:conversation_id] = @conversation.id
+    cookies[:conversation_id] = @conversation.encrypted_id
   end
 
   def set_visitor
@@ -19,5 +20,7 @@ class ChatWidgetController < ActionController::Base
       @visitor = Visitor.create
       session[:visitor_id] = @visitor.id
     end
+
+    cookies.encrypted[:visitor_id] = @visitor.id
   end
 end

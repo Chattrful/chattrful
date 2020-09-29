@@ -7,10 +7,7 @@ module Ajax
 
     def create
       @message = @conversation.messages.new(message_params)
-
-      respond_to do |format|
-        format.js
-      end
+      @message.save
     end
 
     private
