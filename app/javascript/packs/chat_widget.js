@@ -2,10 +2,25 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+// doc = Nokogiri::HTML(URI.open("https://emojipedia.org/people/")
+// arr = []
+// doc.at_css('.emoji-list').children.each do |x|
+//   name = x.children.css('a > text()').text
+//   emoji = x.children.at_css('.emoji')&.text
+
+//   if name.present? && emoji.present?
+//     arr << {
+//       name: name.squish,
+//       emoji: emoji
+//     }
+//   end
+// end
+
 import autosize from 'autosize';
 import { EmojiButton } from '@joeattardi/emoji-button';
 import Rails from "@rails/ujs"
 import ScrollToBottom from '../custom/scroll_to_bottom';
+import Emoji from '../custom/emoji';
 
 Rails.start()
 
@@ -41,32 +56,32 @@ document.addEventListener("turbolinks:load", () => {
     handleSubmit();
   });
 
-  const emojiPicker = new EmojiButton({
-    showPreview: false,
-    emojiSize: '25px',
-    emojisPerRow: 9,
-    showRecents: false
-  });
-  const emojiTrigger = document.querySelector('.js-emoji-trigger');
+  // const emojiPicker = new EmojiButton({
+  //   showPreview: false,
+  //   emojiSize: '25px',
+  //   emojisPerRow: 9,
+  //   showRecents: false
+  // });
+  // const emojiTrigger = document.querySelector('.js-emoji-trigger');
 
-  emojiPicker.on('emoji', selection => {
-    const chatboxTextarea = document.querySelector('.js-chatbox');
+  // emojiPicker.on('emoji', selection => {
+  //   const chatboxTextarea = document.querySelector('.js-chatbox');
 
-    const content = chatboxTextarea.value;
-    const emoji = selection.emoji;
-    const position = parseInt(chatboxTextarea.dataset.selectionStart);
+  //   const content = chatboxTextarea.value;
+  //   const emoji = selection.emoji;
+  //   const position = parseInt(chatboxTextarea.dataset.selectionStart);
 
-    const newContent = insertAt(content, emoji, position);
+  //   const newContent = insertAt(content, emoji, position);
 
-    chatboxTextarea.value = newContent;
+  //   chatboxTextarea.value = newContent;
 
-    setTimeout(() => {
-      chatboxTextarea.focus();
-      chatboxTextarea.selectionEnd = position + emoji.length
-    }, 250);
-  });
+  //   setTimeout(() => {
+  //     chatboxTextarea.focus();
+  //     chatboxTextarea.selectionEnd = position + emoji.length
+  //   }, 250);
+  // });
 
-  emojiTrigger.addEventListener('click', () => emojiPicker.togglePicker(emojiTrigger));
+  // emojiTrigger.addEventListener('click', () => emojiPicker.togglePicker(emojiTrigger));
 
   const handleSubmit = () => {
     const chatboxTextarea = document.querySelector('.js-chatbox');

@@ -66,3 +66,25 @@
     @extend .scrollbar;
   }
 }
+
+
+.emojis {
+  padding: $default-padding;
+  height: 300px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @extend .scrollbar;
+
+  .emoji {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+
+    font-size: 25px;
+  }
+}
