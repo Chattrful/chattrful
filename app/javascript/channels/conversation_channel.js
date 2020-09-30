@@ -4,7 +4,7 @@ import KTCookie from '../metronic/components/cookie';
 document.addEventListener("turbolinks:load", () => {
   consumer.subscriptions.create({
       channel: 'ConversationChannel',
-      conversation_id: KTCookie.getCookie('conversation_id')
+      conversation_id: document.querySelector('[data-conversation-id]').dataset.conversationId
     }, {
     connected() {
       // Called when the subscription is ready for use on the server

@@ -1,0 +1,5 @@
+<div tabindex="-1" class="chat-messages__item <%= 'chat-messages__item--mine' if message.sender == current_user %>">
+  <div tabindex="-1" class="chat-messages__item-text">
+    <%= message.content %>
+  </div>
+</div>

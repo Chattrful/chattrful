@@ -1,4 +1,4 @@
-<div class="chat-widget">
+<div class="chat-widget" data-conversation-id="<%= @conversation.encrypted_id %>">
   <header class="chat-widget__header">
     <div class="chat-widget__header-details">
       <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
@@ -16,11 +16,7 @@
 
   <div class="chat-messages js-chat-messages">
     <% @messages.each do |message| %>
-      <div tabindex="-1" class="chat-messages__item <%= message.sender == @visitor ? 'chat-messages__item--mine' : 'chat-messages__item--other' %>">
-        <div tabindex="-1" class="chat-messages__item-text">
-          <%= message.content %>
-        </div>
-      </div>
+      <%= render 'messages/message', message: message %>
     <% end %>
   </div>
 

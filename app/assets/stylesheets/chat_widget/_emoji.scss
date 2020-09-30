@@ -48,12 +48,12 @@
   }
 
   .emoji-picker__category-name {
-    margin-top: 1.5em;
+    margin-top: 1.5em !important;
     font-family: $font-family;
     text-transform: unset !important;
 
     &:first-child {
-      margin-top: 0;
+      margin-top: 0 !important;
     }
   }
 
