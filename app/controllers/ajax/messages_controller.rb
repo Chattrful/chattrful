@@ -4,10 +4,16 @@ module Ajax
   class MessagesController < AjaxController
     before_action :conversation
     before_action :visitor
+    helper_method :current_user
 
     def create
       @message = @conversation.messages.new(message_params)
       @message.save
+      @timestamp = params[:timestamp]
+
+      respond_to do |format|
+        format.js
+      end
     end
 
     private
@@ -22,6 +28,10 @@ module Ajax
 
     def message_params
       params.require(:message).permit(:content).merge(sender: @visitor)
+    end
+
+    def current_user
+      @visitor
     end
   end
 end

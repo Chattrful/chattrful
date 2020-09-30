@@ -5,6 +5,7 @@ require("channels")
 import autosize from 'autosize';
 import { EmojiButton } from '@joeattardi/emoji-button';
 import Rails from "@rails/ujs"
+import ScrollToBottom from '../custom/scroll_to_bottom';
 
 Rails.start()
 
@@ -72,11 +73,14 @@ document.addEventListener("turbolinks:load", () => {
     const content = chatboxTextarea.value.trim();
 
     if (content.length > 0) {
-      appendContent(content);
-      Rails.fire(document.querySelector('.js-chatbox-form'), 'submit');
+      const timestamp = Date.now()
+      appendContent(content, timestamp);
+      const form = document.querySelector('.js-chatbox-form')
+      form.querySelector('.js-timestamp-input').value = timestamp
+      Rails.fire(form, 'submit');
       chatboxTextarea.value = '';
       chatboxTextarea.style.height = 'initial';
-      scrollToBottom();
+      ScrollToBottom(document.querySelector('.js-chat-messages'));
     } else {
       event.preventDefault();
     }
@@ -86,10 +90,10 @@ document.addEventListener("turbolinks:load", () => {
 
   const insertAt = (string, substring, position) => `${string.slice(0, position)}${substring}${string.slice(position)}`;
 
-  const appendContent = (content) => {
+  const appendContent = (content, timestamp) => {
     const chatMessage = document.createElement('div');
     chatMessage.className = 'chat-messages__item chat-messages__item--mine';
-
+    chatMessage.dataset.timestamp = timestamp
     const chatMessageText = document.createElement('div');
     chatMessageText.className = 'chat-messages__item-text';
     chatMessageText.innerText = content;
@@ -99,14 +103,7 @@ document.addEventListener("turbolinks:load", () => {
     document.querySelector('.js-chat-messages').appendChild(chatMessage);
   };
 
-
-  const scrollToBottom = () => {
-    const chatMessages = document.querySelector('.js-chat-messages');
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
   const isMobileOrTablet = () => window.innerWidth < 992;
 
-  scrollToBottom();
+  ScrollToBottom(document.querySelector('.js-chat-messages'));
 })

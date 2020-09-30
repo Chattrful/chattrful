@@ -1,5 +1,6 @@
 import consumer from './consumer';
 import KTCookie from '../metronic/components/cookie';
+import ScrollToBottom from '../custom/scroll_to_bottom';
 
 document.addEventListener("turbolinks:load", () => {
   consumer.subscriptions.create({
@@ -17,8 +18,16 @@ document.addEventListener("turbolinks:load", () => {
     },
 
     received(data) {
-      // Called when there's incoming data on the websocket for this channel
-      console.log(data)
+      const appendedMessage = document.querySelector(`[data-message-id="${data.message_id}"]`);
+
+      if (!appendedMessage) {
+        const tempHTML = document.createElement('div');
+        tempHTML.innerHTML = data.html;
+        const message = tempHTML.firstChild;
+        const chatMessages = document.querySelector('.js-chat-messages')
+        chatMessages.append(message);
+        ScrollToBottom(chatMessages);
+      }
     }
   });
 })

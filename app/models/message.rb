@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Message < ApplicationRecord
   belongs_to :sender, polymorphic: true
   belongs_to :conversation
@@ -9,6 +11,6 @@ class Message < ApplicationRecord
   private
 
   def broadcast_message
-    ActionCable.server.broadcast "conversation_channel_#{conversation.id}", message: content
+    BroadcastMessageWorker.perform_async(id)
   end
 end
