@@ -2,20 +2,6 @@ require('turbolinks').start()
 require('@rails/activestorage').start()
 require('channels')
 
-// doc = Nokogiri::HTML(URI.open("https://emojipedia.org/people/")
-// arr = []
-// doc.at_css('.emoji-list').children.each do |x|
-//   name = x.children.css('a > text()').text
-//   emoji = x.children.at_css('.emoji')&.text
-
-//   if name.present? && emoji.present?
-//     arr << {
-//       name: name.squish,
-//       emoji: emoji
-//     }
-//   end
-// end
-
 import autosize from 'autosize'
 import { EmojiButton } from '@joeattardi/emoji-button'
 import Rails from '@rails/ujs'

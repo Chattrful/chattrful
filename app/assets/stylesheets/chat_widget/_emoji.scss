@@ -72,18 +72,44 @@
   padding: $default-padding;
   height: 300px;
   overflow-y: auto;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  background: #F3F6F9;
 
   @extend .scrollbar;
 
-  .emoji {
+  &__category {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .emojis__category-name {
+      margin-top: 1em;
+    }
+
+    &:first-child {
+      .emojis__category-name {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__category-name {
+    width: 100%;
+    margin: 0;
+    margin-left: 4px;
+  }
+
+  &__button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: none;
+    margin: 4px;
+    padding: 0;
 
     font-size: 25px;
   }
