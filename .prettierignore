@@ -1,0 +1,6 @@
+/public
+/tmp
+yarn.lock
+package.json
+*.yml
+/assets/stylesheets

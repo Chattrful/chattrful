@@ -10,7 +10,7 @@ class Conversation < ApplicationRecord
   ).freeze
 
   def self.encryptor
-    ActiveSupport::MessageEncryptor.new(KEY)                       # => #<ActiveSupport::MessageEncryptor ...>
+    ActiveSupport::MessageEncryptor.new(KEY) # => #<ActiveSupport::MessageEncryptor ...>
   end
 
   def self.decrypt_conversation_id(encrypted_conversation_id)

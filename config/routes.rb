@@ -3,12 +3,12 @@ Rails.application.routes.draw do
 
   namespace :ajax do
     resources :conversations, only: :show do
-      resources :messages, only: :create, constraints: { format: 'js' }
+      resources :messages, only: :create, constraints: {format: "js"}
     end
   end
 
   resources :conversations
-  resource :metronic, controller: 'metronic', only: :show
+  resource :metronic, controller: "metronic", only: :show
 
-  root to: 'conversations#index'
+  root to: "conversations#index"
 end
