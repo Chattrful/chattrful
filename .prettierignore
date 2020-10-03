@@ -3,4 +3,4 @@
 yarn.lock
 package.json
 *.yml
-/assets/stylesheets
+app/assets/stylesheets

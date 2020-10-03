@@ -1,40 +1,40 @@
-"use strict";
+'use strict'
 
-import KTUtil from 'metronic/components/util';
+import KTUtil from 'metronic/components/util'
 
-var KTLayoutBrand = function() {
-    // Private properties
-    var _element;
+var KTLayoutBrand = (function () {
+  // Private properties
+  var _element
 
-    // Private functions
-    var _getHeight = function() {
-        var height = 0;
+  // Private functions
+  var _getHeight = function () {
+    var height = 0
 
-        if (_element) {
-            height = KTUtil.actualHeight(_element);
-        }
-
-        return height;
+    if (_element) {
+      height = KTUtil.actualHeight(_element)
     }
 
-    // Public methods
-	return {
-		init: function(id) {
-            _element = KTUtil.getById(id);
+    return height
+  }
 
-            if (!_element) {
-                return;
-            }
-		},
+  // Public methods
+  return {
+    init: function (id) {
+      _element = KTUtil.getById(id)
 
-        getElement: function() {
-            return _element;
-        },
+      if (!_element) {
+        return
+      }
+    },
 
-        getHeight: function() {
-            return _getHeight();
-        }
-	};
-}();
+    getElement: function () {
+      return _element
+    },
 
-export default KTLayoutBrand;
+    getHeight: function () {
+      return _getHeight()
+    }
+  }
+})()
+
+export default KTLayoutBrand
