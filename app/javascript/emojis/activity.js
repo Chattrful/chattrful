@@ -94,7 +94,7 @@ export default {
     { name: 'Slot Machine', emoji: '🎰' },
     { name: 'Game Die', emoji: '🎲' },
     { name: 'Puzzle Piece', emoji: '🧩' },
-    { name: 'Chess Pawn', emoji: '♟' },
+    { name: 'Chess Pawn', emoji: '♟️' },
     { name: 'Performing Arts', emoji: '🎭' },
     { name: 'Artist Palette', emoji: '🎨' },
     { name: 'Thread', emoji: '🧵' },

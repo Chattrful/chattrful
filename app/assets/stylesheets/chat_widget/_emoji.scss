@@ -69,8 +69,9 @@
 
 
 .emojis {
+  border-top: 1px solid $card-border-color;
   padding: $default-padding;
-  height: 300px;
+  height: 30vh;
   overflow-y: auto;
   background: #F3F6F9;
 
@@ -99,17 +100,18 @@
   }
 
   &__button {
+    font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "EmojiOne Color", "Android Emoji" !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
     cursor: pointer;
     outline: none;
     border: none;
     background: none;
     margin: 4px;
     padding: 0;
+    min-width: 30px;
+    min-height: 30px;
 
     font-size: 25px;
   }

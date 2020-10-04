@@ -102,7 +102,7 @@ export default {
     { name: 'Ferry', emoji: '⛴' },
     { name: 'Motor Boat', emoji: '🛥' },
     { name: 'Ship', emoji: '🚢' },
-    { name: 'Airplane', emoji: '✈' },
+    { name: 'Airplane', emoji: '✈️' },
     { name: 'Small Airplane', emoji: '🛩' },
     { name: 'Airplane Departure', emoji: '🛫' },
     { name: 'Airplane Arrival', emoji: '🛬' },
