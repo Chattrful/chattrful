@@ -36,6 +36,19 @@
     }
   }
 
+  &--active {
+    .icon-svg {
+      fill: $primary;
+
+      circle:last-child {
+        fill: none;
+        stroke: $primary;
+        stroke-miterlimit: 10;
+        stroke-width: 32px;
+      }
+    }
+  }
+
   &--send {
     background-color: unset !important;
 
