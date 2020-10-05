@@ -7,6 +7,7 @@ import Objects from '../emojis/objects'
 import Symbols from '../emojis/symbols'
 import Flags from '../emojis/flags'
 import { debounce } from "debounce";
+import ScrollToBottom from './scroll_to_bottom'
 
 // require 'open-uri'
 // doc = Nokogiri::HTML(URI.open("https://emojipedia.org/flags"))
@@ -114,5 +115,17 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   const emojiSearchInput = document.querySelector('.emojis__search-input')
+
+  const chatMessages = document.querySelector('.js-chat-messages')
+
+  emojiSearchInput.addEventListener('focus', event => {
+    if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
+      ScrollToBottom(chatMessages)
+      setTimeout(() => {
+        ScrollToBottom(chatMessages)
+      }, 250);
+    }
+  })
+
   emojiSearchInput.onkeydown = debounce(searchEmoji, 500)
 })
