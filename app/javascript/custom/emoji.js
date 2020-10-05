@@ -6,6 +6,7 @@ import TravelAndPlaces from '../emojis/travel_and_places'
 import Objects from '../emojis/objects'
 import Symbols from '../emojis/symbols'
 import Flags from '../emojis/flags'
+import { debounce } from "debounce";
 
 // require 'open-uri'
 // doc = Nokogiri::HTML(URI.open("https://emojipedia.org/flags"))
@@ -23,7 +24,7 @@ import Flags from '../emojis/flags'
 // end
 
 document.addEventListener('turbolinks:load', () => {
-  const emojiContainer = document.querySelector('.emojis')
+  const emojisList = document.querySelector('.emojis__list')
 
   const emojiCategories = [
     {
@@ -64,14 +65,11 @@ document.addEventListener('turbolinks:load', () => {
     let categoryName = emojiCategory.name
     let emojis = emojiCategory.emojis
 
-    let emojiCategoryContainer = document.createElement('div')
-    emojiCategoryContainer.className = 'emojis__category'
-
     let emojiCategoryName = document.createElement('h6')
     emojiCategoryName.className = 'emojis__category-name'
     emojiCategoryName.innerText = categoryName
 
-    emojiCategoryContainer.appendChild(emojiCategoryName)
+    emojisList.appendChild(emojiCategoryName)
 
     emojis.map(emojiData => {
       let emoji = document.createElement('button')
@@ -79,9 +77,42 @@ document.addEventListener('turbolinks:load', () => {
       emoji.type = 'button'
       emoji.innerText = emojiData.emoji
       emoji.title = emojiData.name
-      emojiCategoryContainer.appendChild(emoji)
+      emoji.dataset.name = emojiData.name
+      emojisList.appendChild(emoji)
     })
-
-    emojiContainer.appendChild(emojiCategoryContainer)
   })
+
+  const searchEmoji = () => {
+    let searchTerm = document.querySelector('.emojis__search-input').value.toUpperCase()
+    let emojiButtons = document.querySelectorAll('.emojis__button')
+    let emojiCategoryNames = document.querySelectorAll('.emojis__category-name')
+
+    if (searchTerm.length > 0) {
+      for (let i = 0; i < emojiCategoryNames.length; i++) {
+        emojiCategoryNames[i].style.display = 'none'
+      }
+
+      for (let i = 0; i < emojiButtons.length; i++) {
+        let emojiButton = emojiButtons[i]
+        let title = emojiButton.title.toUpperCase()
+
+        if (title.indexOf(searchTerm) > -1) {
+          emojiButton.style.display = ''
+        } else {
+          emojiButton.style.display = 'none';
+        }
+      }
+    } else {
+      for (let i = 0; i < emojiButtons.length; i++) {
+        emojiButtons[i].style.display = ''
+      }
+
+      for (let i = 0; i < emojiCategoryNames.length; i++) {
+        emojiCategoryNames[i].style.display = ''
+      }
+    }
+  }
+
+  const emojiSearchInput = document.querySelector('.emojis__search-input')
+  emojiSearchInput.onkeydown = debounce(searchEmoji, 500)
 })

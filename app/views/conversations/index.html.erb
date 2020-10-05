@@ -20,9 +20,13 @@
     <% end %>
   </div>
 
-  <footer class="chat-widget__footer">
-    <div class="emojis">
+  <footer class="chat-widget__footer" data-sticky-container>
+    <div class="emojis" id="js-emojis">
+      <div class="emojis__search">
+        <input class="emojis__search-input" type="text" placeholder="Search Emoji">
+      </div>
 
+      <div class="emojis__list list"></div>
     </div>
 
     <%= form_with model: Message.new, url: ajax_conversation_messages_path(@conversation, format: :js), html: { class: 'js-chatbox-form chatbox' }, local: false do |f| %>

@@ -67,36 +67,69 @@
   }
 }
 
-
 .emojis {
   border-top: 1px solid $card-border-color;
   padding: $default-padding;
   height: 30vh;
   overflow-y: auto;
-  background: #F3F6F9;
+  background: $gray-100;
 
   @extend .scrollbar;
 
-  &__category {
+  &__search {
+    position: fixed;
+    background: $gray-100;
+    z-index: 1;
+    left: 0.75em;
+    right: 0.75em;
+    margin-left: -0.75em;
+    margin-right: -4px;
+    margin-top: -0.75em;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+  }
+
+  &__search-input {
+    overflow: visible;
+    display: block;
+    width: 100%;
+    color: $font-color;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid $gray-300;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    height: calc(1.35em + 1.1rem + 2px);
+    padding: 0.55rem 0.75rem;
+    font-size: 12px;
+    line-height: 1.35;
+    border-radius: 0.28rem;
+
+    &:focus {
+      color: $font-color;
+      background-color: #ffffff;
+      border-color: #69b3ff;
+      outline: 0;
+    }
+  }
+
+  &__list {
+    margin-top: 45px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
-    .emojis__category-name {
-      margin-top: 1em;
-    }
-
-    &:first-child {
-      .emojis__category-name {
-        margin-top: 0;
-      }
-    }
   }
 
   &__category-name {
     width: 100%;
     margin: 0;
     margin-left: 4px;
+    margin-top: 1em;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   &__button {
@@ -112,7 +145,6 @@
     padding: 0;
     min-width: 30px;
     min-height: 30px;
-
     font-size: 25px;
   }
 }
