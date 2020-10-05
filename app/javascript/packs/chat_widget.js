@@ -42,6 +42,14 @@ document.addEventListener('turbolinks:load', () => {
     handleSubmit()
   })
 
+  const emojiTrigger = document.querySelector('.js-emoji-trigger');
+
+  const emojis = document.querySelector('.emojis')
+  emojiTrigger.addEventListener('click', event => {
+    emojis.classList.toggle('emojis--open')
+    emojis.scrollTop = 0;
+  })
+
   // const emojiPicker = new EmojiButton({
   //   showPreview: false,
   //   emojiSize: '25px',
