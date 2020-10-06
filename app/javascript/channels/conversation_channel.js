@@ -1,6 +1,6 @@
 import consumer from './consumer'
 import KTCookie from '../metronic/components/cookie'
-import ScrollToBottom from '../custom/scroll_to_bottom'
+import ScrollToBottom from '../util/scroll_to_bottom'
 
 document.addEventListener('turbolinks:load', () => {
   consumer.subscriptions.create(
@@ -31,7 +31,7 @@ document.addEventListener('turbolinks:load', () => {
           const message = tempHTML.firstChild
           const chatMessages = document.querySelector('.js-chat-messages')
           chatMessages.append(message)
-          ScrollToBottom(chatMessages)
+          ScrollToBottom({element: chatMessages})
         }
       }
     }

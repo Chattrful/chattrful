@@ -1,4 +1,5 @@
 export default {
+  name: 'Food & Drink',
   emojis: [
     { name: 'Grapes', emoji: '🍇' },
     { name: 'Melon', emoji: '🍈' },

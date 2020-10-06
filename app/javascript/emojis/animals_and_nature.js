@@ -1,4 +1,5 @@
 export default {
+  name: 'Animals & Nature',
   emojis: [
     { name: 'See-No-Evil Monkey', emoji: '🙈' },
     { name: 'Hear-No-Evil Monkey', emoji: '🙉' },

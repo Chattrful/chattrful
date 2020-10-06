@@ -1,4 +1,5 @@
 export default {
+  name: 'Travel & Places',
   emojis: [
     { name: 'Person Rowing Boat', emoji: '🚣' },
     { name: 'Map of Japan', emoji: '🗾' },

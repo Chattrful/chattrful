@@ -1,4 +1,5 @@
 export default {
+  name: 'Symbols',
   emojis: [
     { name: 'Heart with Arrow', emoji: '💘' },
     { name: 'Heart with Ribbon', emoji: '💝' },

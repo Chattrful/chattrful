@@ -1,4 +1,5 @@
 export default {
+  name: 'Activity',
   emojis: [
     { name: 'Person in Suit Levitating', emoji: '🕴' },
     { name: 'Person Climbing', emoji: '🧗' },

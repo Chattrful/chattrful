@@ -1,4 +1,5 @@
 export default {
+  name: 'Objects',
   emojis: [
     { name: 'Love Letter', emoji: '💌' },
     { name: 'Hole', emoji: '🕳' },

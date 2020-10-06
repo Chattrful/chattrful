@@ -1,4 +1,5 @@
 export default {
+  name: 'Smileys & People',
   emojis: [
     { name: 'Grinning Face', emoji: '😀' },
     { name: 'Grinning Face with Big Eyes', emoji: '😃' },

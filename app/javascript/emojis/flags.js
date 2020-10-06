@@ -1,4 +1,5 @@
 export default {
+  name: 'Flags',
   emojis: [
     { name: 'Chequered Flag', emoji: '🏁' },
     { name: 'Triangular Flag', emoji: '🚩' },

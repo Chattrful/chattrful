@@ -5,15 +5,19 @@ require('channels')
 import autosize from 'autosize'
 import { EmojiButton } from '@joeattardi/emoji-button'
 import Rails from '@rails/ujs'
-import ScrollToBottom from '../custom/scroll_to_bottom'
-import Emoji from '../custom/emoji'
+import ScrollToBottom from '../util/scroll_to_bottom'
+import EmojiPicker from '../chat_widget/emoji_picker'
 
 Rails.start()
 
 document.addEventListener('turbolinks:load', () => {
+  const emojiPicker = new EmojiPicker
   const chatboxTextarea = document.querySelector('.js-chatbox')
   const chatMessages = document.querySelector('.js-chat-messages')
+  const chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
+  const emojiTrigger = document.querySelector('.js-emoji-trigger');
 
+  // Chatbox Textarea
   autosize(chatboxTextarea)
 
   chatboxTextarea.addEventListener('keypress', event => {
@@ -41,66 +45,19 @@ document.addEventListener('turbolinks:load', () => {
 
   chatboxTextarea.addEventListener('focus', event => {
     if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
-      setTimeout(() => {
-        ScrollToBottom(chatMessages)
-      }, 250);
+      ScrollToBottom({
+        element: chatMessages,
+        delay: 250
+      })
     }
   })
 
-  const chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
+  // Submit button
   chatboxSubmitButton.addEventListener('click', event => {
     handleSubmit()
   })
 
-  const emojiTrigger = document.querySelector('.js-emoji-trigger');
-
-  const emojis = document.querySelector('.emojis')
-  emojiTrigger.addEventListener('click', event => {
-    const emojiSearchInput = document.querySelector('.emojis__search-input')
-
-    if (emojiSearchInput.value.length > 0) {
-      emojiSearchInput.value = ''
-
-      const emojiButtons = document.querySelectorAll('.emojis__button')
-
-      for (let i = 0; i < emojiButtons.length; i++) {
-        emojiButtons[i].style.display = ''
-      }
-    }
-
-    let scrollBtm = false
-    if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
-      scrollBtm = true
-    }
-
-    emojis.classList.toggle('emojis--open')
-    emojiTrigger.classList.toggle('btn-icon--active')
-    document.querySelector('.emojis__list').scrollTop = 0;
-    chatboxTextarea.focus();
-
-    if (scrollBtm) {
-      setTimeout(() => {
-        ScrollToBottom(chatMessages)
-      }, 250);
-    }
-  })
-
-  document.addEventListener('click', event => {
-    if (event.target && event.target.classList.contains('emojis__button')) {
-      let content = chatboxTextarea.value;
-      let emoji = event.target.innerText;
-      let position = parseInt(chatboxTextarea.dataset.selectionStart);
-      let newContent = insertAt(content, emoji, position);
-
-      chatboxTextarea.value = newContent;
-
-      chatboxTextarea.focus();
-      chatboxTextarea.setSelectionRange(position + emoji.length, position + emoji.length)
-    }
-  });
-
   const handleSubmit = () => {
-    const chatboxTextarea = document.querySelector('.js-chatbox')
     const content = chatboxTextarea.value.trim()
 
     if (content.length > 0) {
@@ -111,18 +68,15 @@ document.addEventListener('turbolinks:load', () => {
       Rails.fire(form, 'submit')
       chatboxTextarea.value = ''
       chatboxTextarea.style.height = 'initial'
-      emojis.classList.remove('emojis--open')
+      emojiPicker.close()
       emojiTrigger.classList.remove('btn-icon--active')
-      ScrollToBottom(chatMessages)
+      ScrollToBottom({element: chatMessages})
     } else {
       event.preventDefault()
     }
 
     chatboxTextarea.focus()
   }
-
-  const insertAt = (string, substring, position) =>
-    `${string.slice(0, position)}${substring}${string.slice(position)}`
 
   const appendContent = (content, timestamp) => {
     const chatMessage = document.createElement('div')
@@ -137,9 +91,35 @@ document.addEventListener('turbolinks:load', () => {
     document.querySelector('.js-chat-messages').appendChild(chatMessage)
   }
 
+  // Emoji trigger
+  emojiTrigger.addEventListener('click', event => {
+    let shouldScrollBtm = false
+    if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
+      shouldScrollBtm = true
+    }
+
+    if (emojiTrigger.classList.contains('btn-icon--active')) {
+      emojiTrigger.classList.remove('btn-icon--active')
+      emojiPicker.close()
+    } else {
+      emojiTrigger.classList.add('btn-icon--active')
+      emojiPicker.open()
+    }
+
+    chatboxTextarea.focus();
+
+    if (shouldScrollBtm) {
+      ScrollToBottom({
+        element: chatMessages,
+        delay: 250
+      })
+    }
+  })
+
   const isMobileOrTablet = () => window.innerWidth < 992
 
-  setTimeout(() => {
-    ScrollToBottom(chatMessages)
-  }, 250);
+  ScrollToBottom({
+    element: chatMessages,
+    delay: 250
+  })
 })
