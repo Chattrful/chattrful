@@ -8,6 +8,7 @@ import Symbols from '../emojis/symbols'
 import Flags from '../emojis/flags'
 import { debounce } from "debounce";
 import ScrollToBottom from './scroll_to_bottom'
+import fuzzysort from 'fuzzysort'
 
 // require 'open-uri'
 // doc = Nokogiri::HTML(URI.open("https://emojipedia.org/flags"))
@@ -24,7 +25,25 @@ import ScrollToBottom from './scroll_to_bottom'
 //   end
 // end
 
+
+// class EmojiPicker {
+//   constructor() {
+//     this.emojiList = document.querySelector('.emojis__list')
+//     this.searchInput = document.querySelector('.emojis__search-input')
+//     this.
+//     this.init()
+//   }
+
+//   init() {
+//     document.addEventListener('turbolinks:load', () => {
+
+//     })
+//   }
+// }
+
 document.addEventListener('turbolinks:load', () => {
+  const emojiSearchArray = []
+
   const emojisList = document.querySelector('.emojis__list')
 
   const emojiCategories = [
@@ -78,8 +97,8 @@ document.addEventListener('turbolinks:load', () => {
       emoji.type = 'button'
       emoji.innerText = emojiData.emoji
       emoji.title = emojiData.name
-      emoji.dataset.name = emojiData.name
       emojisList.appendChild(emoji)
+      emojiSearchArray.push(emojiData.name)
     })
   })
 
@@ -89,15 +108,28 @@ document.addEventListener('turbolinks:load', () => {
     let emojiCategoryNames = document.querySelectorAll('.emojis__category-name')
 
     if (searchTerm.length > 0) {
+      let options = {
+        threshold: -10000, // Don't return matches worse than this (higher is faster)
+        limit: 100, // Don't return more results than this (lower is faster)
+        allowTypo: false, // Allwos a snigle transpoes (false is faster)
+
+        key: null, // For when targets are objects (see its example usage)
+        keys: null, // For when targets are objects (see its example usage)
+        scoreFn: null // For use with `keys` (see its example usage)
+      }
+
+      let results = fuzzysort.go(searchTerm, emojiSearchArray, options)
+      let resultsArray = results.map(result => result.target)
+
       for (let i = 0; i < emojiCategoryNames.length; i++) {
         emojiCategoryNames[i].style.display = 'none'
       }
 
       for (let i = 0; i < emojiButtons.length; i++) {
         let emojiButton = emojiButtons[i]
-        let title = emojiButton.title.toUpperCase()
+        let title = emojiButton.title
 
-        if (title.indexOf(searchTerm) > -1) {
+        if (resultsArray.includes(title)) {
           emojiButton.style.display = ''
         } else {
           emojiButton.style.display = 'none';

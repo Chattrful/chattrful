@@ -111,6 +111,8 @@ document.addEventListener('turbolinks:load', () => {
       Rails.fire(form, 'submit')
       chatboxTextarea.value = ''
       chatboxTextarea.style.height = 'initial'
+      emojis.classList.remove('emojis--open')
+      emojiTrigger.classList.remove('btn-icon--active')
       ScrollToBottom(chatMessages)
     } else {
       event.preventDefault()
@@ -137,5 +139,7 @@ document.addEventListener('turbolinks:load', () => {
 
   const isMobileOrTablet = () => window.innerWidth < 992
 
-  ScrollToBottom(chatMessages)
+  setTimeout(() => {
+    ScrollToBottom(chatMessages)
+  }, 250);
 })
