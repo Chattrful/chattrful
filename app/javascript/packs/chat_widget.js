@@ -118,6 +118,6 @@ document.addEventListener('turbolinks:load', () => {
 
   ScrollToBottom({
     element: chatMessages,
-    delay: 250
+    delay: 100
   })
 })

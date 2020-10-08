@@ -17,9 +17,7 @@
   </header>
 
   <div class="chat-messages js-chat-messages">
-    <% @messages.each do |message| %>
-      <%= render 'messages/message', message: message %>
-    <% end %>
+    <%= render partial: 'messages/message', collection: @messages, cached: true %>
   </div>
 
   <footer class="chat-widget__footer" data-sticky-container>
