@@ -1,7 +1,7 @@
-<span class="js-message-template" data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"></span>
+<span tabindex="-1" class="js-message-template" data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"></span>
 
 <div class="chat-widget" data-conversation-id="<%= @conversation.encrypted_id %>">
-  <header class="chat-widget__header">
+  <header tabindex="-1" class="chat-widget__header">
     <div class="chat-widget__header-details">
       <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
       <div>
