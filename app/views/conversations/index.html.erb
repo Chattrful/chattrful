@@ -1,3 +1,5 @@
+<span class="js-message-template" data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"></span>
+
 <div class="chat-widget" data-conversation-id="<%= @conversation.encrypted_id %>">
   <header class="chat-widget__header">
     <div class="chat-widget__header-details">
@@ -37,7 +39,7 @@
       </button>
 
       <div class="chatbox__input-wrapper">
-        <%= f.text_area :content, class: 'js-chatbox chatbox__input', rows: 1, data: { selection_start: 0 }, placeholder: 'Type a message', tabindex: '-1' %>
+        <%= f.text_area :content, class: 'js-chatbox chatbox__input', rows: 1, data: { selection_start: 0 }, placeholder: 'Type a message', tabindex: '1' %>
       </div>
 
       <button tabindex="2" type="button" class="js-chatbox-submit btn-icon btn-icon--send">

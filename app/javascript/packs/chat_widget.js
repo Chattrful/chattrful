@@ -16,6 +16,7 @@ document.addEventListener('turbolinks:load', () => {
   const chatMessages = document.querySelector('.js-chat-messages')
   const chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
   const emojiTrigger = document.querySelector('.js-emoji-trigger');
+  const messageTemplate = document.querySelector('.js-message-template').dataset.template
 
   // Chatbox Textarea
   autosize(chatboxTextarea)
@@ -79,16 +80,13 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   const appendContent = (content, timestamp) => {
-    const chatMessage = document.createElement('div')
-    chatMessage.className = 'chat-messages__item chat-messages__item--mine'
+    const element = document.createElement('html');
+    element.innerHTML = messageTemplate
+    const chatMessage = element.querySelector('.chat-messages__item')
     chatMessage.dataset.timestamp = timestamp
-    const chatMessageText = document.createElement('div')
-    chatMessageText.className = 'chat-messages__item-text'
-    chatMessageText.innerText = content
+    chatMessage.querySelector('.chat-messages__item-text').innerText = content
 
-    chatMessage.appendChild(chatMessageText)
-
-    document.querySelector('.js-chat-messages').appendChild(chatMessage)
+    chatMessages.appendChild(chatMessage)
   }
 
   // Emoji trigger

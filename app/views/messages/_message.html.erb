@@ -1,5 +1,24 @@
-<div tabindex="-1" class="chat-messages__item <%= 'chat-messages__item--mine' if defined?(current_user) && message.sender == current_user %>" data-message-id="<%= message.id %>">
-  <div tabindex="-1" class="chat-messages__item-text">
-    <%= message.content %>
+<% if defined?(template) && template %>
+  <div tabindex="-1" class="chat-messages__item chat-messages__item--mine">
+    <div tabindex="-1" class="chat-messages__item-content">
+      <div class="chat-messages__item-text">
+      </div>
+
+      <div class="chat-messages__item-timestamp">
+        <div class="spinner"></div>
+      </div>
+    </div>
   </div>
-</div>
+<% else %>
+  <div tabindex="-1" class="chat-messages__item <%= "chat-messages__item--mine" if defined?(current_user) && message.sender == current_user %>" data-message-id="<%= message.id %>">
+    <div tabindex="-1" class="chat-messages__item-content">
+      <div class="chat-messages__item-text">
+        <%= message.content %>
+      </div>
+
+      <div class="chat-messages__item-timestamp">
+        <%= message.created_at.strftime("%I:%M %p") %>
+      </div>
+    </div>
+  </div>
+<% end %>
