@@ -18,7 +18,7 @@
   .chat-messages__item-content {
     background-color: $gray-200;
     border-bottom-left-radius: 0;
-    display: flex;
+    position: relative;
   }
 
   &:last-child {
@@ -41,7 +41,6 @@
   padding: $default-padding;
   color: $font-color;
   border-radius: 0.42rem;
-  position: relative;
 
   @media screen and (max-width: 1024px) and (min-width: 901px) {
     max-width: 80%;
@@ -57,7 +56,9 @@
   color: $gray-700;
   margin-left: $default-padding;
   white-space: nowrap;
-  align-self: flex-end;
+  position: absolute;
+  right: $default-padding;
+  bottom: $default-padding;
 }
 
 .spinner {
@@ -84,4 +85,9 @@
   to {
       transform: rotate(360deg);
   }
+}
+
+.chat-messages__item-timestamp-spacer {
+  width: 50px;
+  display: inline-block;
 }
