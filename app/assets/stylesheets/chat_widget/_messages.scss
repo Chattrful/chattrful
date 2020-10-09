@@ -91,3 +91,11 @@
   width: 50px;
   display: inline-block;
 }
+
+.chat-messages__item-error-icon {
+  stroke: $gray-700;
+  fill: $gray-700;
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+}
