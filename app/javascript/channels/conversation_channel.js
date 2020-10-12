@@ -3,11 +3,12 @@ import KTCookie from '../metronic/components/cookie'
 import ScrollToBottom from '../util/scroll_to_bottom'
 
 document.addEventListener('turbolinks:load', () => {
+  const chatMessages = document.querySelector('.js-chat-messages')
+
   consumer.subscriptions.create(
     {
       channel: 'ConversationChannel',
-      conversation_id: document.querySelector('[data-conversation-id]').dataset
-        .conversationId
+      conversation_id: document.querySelector('[data-conversation-id]').dataset.conversationId
     },
     {
       connected () {
@@ -21,16 +22,12 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       received (data) {
-        const appendedMessage = document.querySelector(
-          `[data-message-id="${data.message_id}"]`
-        )
+        const appendedMessage = document.querySelector(`[data-message-id="${data.message_id}"]`)
 
         if (!appendedMessage) {
           const tempHTML = document.createElement('div')
           tempHTML.innerHTML = data.html
-          const message = tempHTML.firstChild
-          const chatMessages = document.querySelector('.js-chat-messages')
-          chatMessages.append(message)
+          chatMessages.append(tempHTML.firstElementChild)
           ScrollToBottom({element: chatMessages})
         }
       }

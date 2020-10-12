@@ -6,11 +6,13 @@ import autosize from 'autosize'
 import Rails from '@rails/ujs'
 import ScrollToBottom from '../util/scroll_to_bottom'
 import EmojiPicker from '../chat_widget/emoji_picker'
+import InfiniteScroll from '../chat_widget/infinite_scroll'
 
 Rails.start()
 
 document.addEventListener('turbolinks:load', () => {
   const emojiPicker = new EmojiPicker
+  const infinieScroll = new InfiniteScroll
   const chatboxTextarea = document.querySelector('.js-chatbox')
   const chatMessages = document.querySelector('.js-chat-messages')
   const chatboxSubmitButton = document.querySelector('.js-chatbox-submit')

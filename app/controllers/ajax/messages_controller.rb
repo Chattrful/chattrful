@@ -6,6 +6,14 @@ module Ajax
     before_action :visitor
     helper_method :current_user
 
+    def index
+      @messages = @conversation.messages.includes(:sender).previous_50(params[:last_message_id])
+
+      respond_to do |format|
+        format.js
+      end
+    end
+
     def create
       @message = @conversation.messages.new(message_params)
       @message.save
@@ -19,7 +27,7 @@ module Ajax
     private
 
     def conversation
-      @conversation ||= Conversation.find(session[:conversation_id])
+      @conversation ||= Conversation.find_by_uuid(params[:conversation_id])
     end
 
     def visitor

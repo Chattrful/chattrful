@@ -1,6 +1,6 @@
 <span tabindex="-1" class="js-message-template" data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"></span>
 
-<div class="chat-widget" data-conversation-id="<%= @conversation.encrypted_id %>">
+<div class="chat-widget" data-conversation-id="<%= @conversation.uuid %>">
   <header tabindex="-1" class="chat-widget__header">
     <div class="chat-widget__header-details">
       <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
@@ -16,7 +16,7 @@
     </div>
   </header>
 
-  <div class="chat-messages js-chat-messages">
+  <div class="chat-messages js-chat-messages" data-last-message-id="<%= @messages.first.id %>" data-url="<%= ajax_conversation_messages_path(@conversation.uuid, format: :js) %>" data-scroll="true">
     <%= render partial: 'messages/message', collection: @messages, cached: true %>
   </div>
 
@@ -32,7 +32,7 @@
       <div class="emojis__list list"></div>
     </div>
 
-    <%= form_with model: Message.new, url: ajax_conversation_messages_path(@conversation, format: :js), html: { class: 'js-chatbox-form chatbox' }, local: false do |f| %>
+    <%= form_with model: Message.new, url: ajax_conversation_messages_path(@conversation.uuid, format: :js), html: { class: 'js-chatbox-form chatbox' }, local: false do |f| %>
       <%= hidden_field_tag :timestamp, nil, class: 'js-timestamp-input' %>
 
       <button tabindex="-1" type="button" class="js-emoji-trigger btn-icon btn-icon--rounded">

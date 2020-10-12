@@ -12,6 +12,6 @@ class BroadcastMessageWorker
       locals: {message: message}
     )
 
-    ActionCable.server.broadcast "conversation_channel_#{message.conversation.id}", html: html, message_id: message.id
+    ActionCable.server.broadcast "conversation_channel_#{message.conversation.uuid}", html: html, message_id: message.id
   end
 end

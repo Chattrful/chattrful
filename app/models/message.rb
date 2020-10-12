@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Message < ApplicationRecord
+  scope :previous_50, ->(id) {
+    where("id < ?", id).order(created_at: :desc).limit(50)
+  }
+
   belongs_to :sender, polymorphic: true
   belongs_to :conversation
 
