@@ -16,12 +16,13 @@ class EmojiPicker {
   constructor() {
     this.root = document.querySelector('.emojis')
     this.list = document.querySelector('.emojis__list')
-    this.searchInput = document.querySelector('.emojis__search-input')
+    this.searchInput = document.querySelector('.js-emoji-search-input')
     this.chatboxTextarea = document.querySelector('.js-chatbox')
     this.searchArray = []
     this.buttons = []
     this.categoryNames = []
     this.trigger = document.querySelector('.js-emoji-trigger')
+    this.resetSearchButton = document.querySelector('.js-emoji-search-reset-btn')
     this.init()
   }
 
@@ -64,6 +65,10 @@ class EmojiPicker {
     this.searchInput.onkeydown = debounce(this.search.bind(this), 500)
     this.buttons = document.querySelectorAll('.emojis__button')
     this.categoryNames = document.querySelectorAll('.emojis__category-name')
+    this.resetSearchButton.addEventListener('click', event => {
+      this.resetSearch()
+      this.searchInput.focus()
+    })
   }
 
   insertEmoji() {
@@ -80,6 +85,7 @@ class EmojiPicker {
   open() {
     this.root.classList.add('emojis--open')
     this.list.scrollTop = 0;
+    this.searchInput.focus()
 
     if (this.searchInput.value.length > 0) {
       this.resetSearch()
@@ -92,14 +98,17 @@ class EmojiPicker {
 
   resetSearch() {
     this.searchInput.value = ''
+    this.resetSearchButton.style.display = 'none'
     this.displayButtons(true)
     this.displayCategoryNames(true)
   }
 
   search() {
-    let term = document.querySelector('.emojis__search-input').value
+    let term = this.searchInput.value
 
     if (term.length > 0) {
+      this.resetSearchButton.style.display = 'block'
+
       let options = {
         threshold: -10000, // Don't return matches worse than this (higher is faster)
         limit: 100, // Don't return more results than this (lower is faster)
@@ -126,6 +135,7 @@ class EmojiPicker {
     } else {
       this.displayCategoryNames(true)
       this.displayButtons(true)
+      this.resetSearchButton.style.display = 'none'
     }
   }
 

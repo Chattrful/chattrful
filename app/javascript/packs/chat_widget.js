@@ -3,7 +3,6 @@ require('@rails/activestorage').start()
 require('channels')
 
 import autosize from 'autosize'
-import { EmojiButton } from '@joeattardi/emoji-button'
 import Rails from '@rails/ujs'
 import ScrollToBottom from '../util/scroll_to_bottom'
 import EmojiPicker from '../chat_widget/emoji_picker'
@@ -107,8 +106,6 @@ document.addEventListener('turbolinks:load', () => {
       emojiTrigger.classList.add('btn-icon--active')
       emojiPicker.open()
     }
-
-    chatboxTextarea.focus();
 
     if (shouldScrollBtm) {
       ScrollToBottom({
