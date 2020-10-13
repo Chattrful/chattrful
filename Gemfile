@@ -69,4 +69,5 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "anycable-rails", "~> 1.0"
 gem "bundler-audit"
 gem "kaminari"
+gem "rinku"
 gem "sidekiq"
