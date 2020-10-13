@@ -61,32 +61,6 @@
   bottom: $default-padding;
 }
 
-.spinner {
-  position: relative;
-  width: 1.2em;
-  height: 1.2em;
-
-  &:before {
-    content: '';
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid #D1D3E0;
-    border-right: 2px solid transparent;
-    width: 1.2rem;
-    height: 1.2rem;
-    -webkit-animation: animation-spinner .5s linear infinite;
-    animation: animation-spinner .5s linear infinite;
-  }
-}
-
-@keyframes animation-spinner {
-  to {
-      transform: rotate(360deg);
-  }
-}
-
 .chat-messages__item-timestamp-spacer {
   width: 50px;
   display: inline-block;
@@ -98,4 +72,28 @@
   width: 1.2em;
   height: 1.2em;
   display: block;
+}
+
+.chat-messages__item-spinner {
+  width: 1.2em;
+  height: 1.2em;
+
+  &:before {
+    width: 1.2em;
+    height: 1.2em;
+  }
+}
+
+.chat-messages__scrolling-spinner {
+  margin-bottom: $default-padding;
+
+  .spinner {
+    margin: 0 auto;
+
+    &:before {
+      left: 0;
+      border: 3px solid $primary;
+      border-right: 3px solid transparent;
+    }
+  }
 }

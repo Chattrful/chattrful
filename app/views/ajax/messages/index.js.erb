@@ -1,5 +1,7 @@
 var chatMessages = document.querySelector('.js-chat-messages')
 
+document.querySelector('.chat-messages__scrolling-spinner').remove()
+
 <% if @messages.present? %>
   <% @messages.each do |message| %>
     var tempHTML = document.createElement('div')
@@ -8,11 +10,12 @@ var chatMessages = document.querySelector('.js-chat-messages')
   <% end %>
 
   chatMessages.dataset.lastMessageId = <%= @messages.last.id %>
-
-  setTimeout(function(){
-
-  }, 100);
-
+  console.log('done prepend')
 <% else %>
   chatMessages.dataset.scroll = false
 <% end %>
+
+if (chatMessages.scrollTop == 0) {
+  var lastMessage = document.querySelector('[data-message-id="<%= params[:last_message_id] %>"]')
+  lastMessage.scrollIntoView()
+}
