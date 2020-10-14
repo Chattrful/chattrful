@@ -93,17 +93,17 @@ jobs:
           paths:
             - ./chattrful
 
-  rubocop:
+  standardrb:
     executor: default
     steps:
       - attach_workspace:
           at: ~/
       - configure_bundler
       - run:
-          name: Rubocop
+          name: StandardRb
           command: |
             bundle install
-            bundle exec rubocop
+            bundle exec standardrb
   brakeman:
     executor: default
     steps:
@@ -145,7 +145,7 @@ workflows:
   integration:
     jobs:
       - build
-      - rubocop:
+      - standardrb:
           requires:
             - build
       - brakeman:
