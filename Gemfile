@@ -59,7 +59,7 @@ group :test do
   # Tests gems
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "rspec-rails", "~> 4.0.1"
-  gem "simplecov", require: false
+  gem "simplecov", "< 0.18", require: false
   gem "timecop"
 end
 
