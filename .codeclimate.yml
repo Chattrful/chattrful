@@ -15,6 +15,7 @@ exclude_patterns:
 - "lib/tasks/*.rake"
 - "app/assets/stylesheets/metronic/"
 - "app/javascript/metronic/"
+- "app/javascript/emojis/"
 
 plugins:
   brakeman:
