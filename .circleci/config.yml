@@ -102,8 +102,8 @@ jobs:
       - run:
           name: StandardRb
           command: |
-            bundle install
-            bundle exec standardrb
+            gem install standardrb
+            standardrb
   brakeman:
     executor: default
     steps:
@@ -113,8 +113,8 @@ jobs:
       - run:
           name: Brakeman
           command: |
-            bundle install
-            bundle exec brakeman
+            gem install brakeman
+            brakeman
 
   fasterer:
     executor: default
@@ -125,8 +125,8 @@ jobs:
       - run:
           name: Fasterer
           command: |
-            bundle install
-            bundle exec fasterer
+            gem install fasterer
+            fasterer
 
   rails_best_practices:
     executor: default
@@ -137,8 +137,8 @@ jobs:
       - run:
           name: Rails Best Practices
           command: |
-            bundle install
-            bundle exec rails_best_practices
+            gem install rails_best_practices
+            rails_best_practices
 
 workflows:
   version: 2
