@@ -39,6 +39,7 @@ group :development, :test do
   gem "rubocop-performance"
   gem "rubocop-rails", require: false
   gem "rubocop-rspec"
+  gem "standardrb", require: false
 end
 
 group :development do
