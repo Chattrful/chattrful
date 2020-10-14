@@ -16,3 +16,22 @@ exclude_patterns:
 - "app/assets/stylesheets/metronic/"
 - "app/javascript/metronic/"
 
+plugins:
+  rubocop:
+    enabled: true
+  brakeman:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  csslint:
+    enabled: true
+  eslint:
+    enabled: true
+  flog:
+    enabled: true
+    config:
+      score_threshold: 20.0
+  reek:
+    enabled: true
+  scss-lint:
+    enabled: true
