@@ -35,11 +35,12 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "fasterer", require: false
   gem "rails_best_practices", require: false
-  gem "rubocop"
-  gem "rubocop-performance"
+  gem "rubocop", require: false
+  gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "rubocop-rspec"
+  gem "rubocop-rspec", require: false
   gem "standardrb", require: false
+  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
 end
 
 group :development do
@@ -58,7 +59,6 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem "webdrivers"
   # Tests gems
-  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "rspec-rails", "~> 4.0.1"
   gem "simplecov", "< 0.18", require: false
   gem "timecop"
