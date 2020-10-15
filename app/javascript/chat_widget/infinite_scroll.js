@@ -1,8 +1,10 @@
+import FetchMessages from '../chat_widget/fetch_messages'
+import ExecuteScript from '../util/execute_script'
+
 export default class InfiniteScroll {
   constructor() {
     this.chatMessages = document.querySelector('.js-chat-messages')
     this.scrolling = false
-    this.url = this.chatMessages.dataset.url
     this.init()
   }
 
@@ -10,22 +12,15 @@ export default class InfiniteScroll {
     this.chatMessages.addEventListener('scroll', async() => {
       if (!this.scrolling && this.chatMessages.scrollTop < 200 && this.chatMessages.dataset.scroll == "true" ) {
         this.scrolling = true
-        this.createSpinner()
         let lastMessageId = this.chatMessages.dataset.lastMessageId
 
-        setTimeout(() => {
-          $.get(`${this.url}?last_message_id=${lastMessageId}`)
-            .done(() => {
-              this.scrolling = false
-            })
-        }, 300);
+        FetchMessages({lastMessageId: lastMessageId}).then(text => {
+          ExecuteScript({text: text})
+          this.scrolling = false
+        });
+
+        console.log("after fetch" + this.scrolling)
       }
     })
-  }
-
-  createSpinner() {
-    let tempHTML = document.createElement('div')
-    tempHTML.innerHTML = '<div class="chat-messages__scrolling-spinner"><div class="spinner"></div></div>'
-    this.chatMessages.prepend(tempHTML.firstElementChild)
   }
 }

@@ -7,17 +7,65 @@ import Rails from '@rails/ujs'
 import ScrollToBottom from '../util/scroll_to_bottom'
 import EmojiPicker from '../chat_widget/emoji_picker'
 import InfiniteScroll from '../chat_widget/infinite_scroll'
+import FetchMessages from '../chat_widget/fetch_messages'
+import ExecuteScript from '../util/execute_script'
 
 Rails.start()
 
 document.addEventListener('turbolinks:load', () => {
+  const handleSubmit = () => {
+    const content = chatboxTextarea.value.trim()
+
+    if (content.length > 0) {
+      const timestamp = Date.now()
+      appendContent(content, timestamp)
+      form.querySelector('.js-timestamp-input').value = timestamp
+      Rails.fire(form, 'submit')
+      chatboxTextarea.value = ''
+      chatboxTextarea.style.height = 'initial'
+      emojiPicker.close()
+      emojiTrigger.classList.remove('btn-icon--active')
+      ScrollToBottom({element: chatMessages})
+    } else {
+      event.preventDefault()
+    }
+
+    chatboxTextarea.focus()
+  }
+
+  const appendContent = (content, timestamp) => {
+    const element = document.createElement('html');
+    element.innerHTML = messageTemplate
+    const chatMessage = element.querySelector('.chat-messages__item')
+    chatMessage.dataset.timestamp = timestamp
+    chatMessage.querySelector('.chat-messages__item-text').innerText = content
+
+    chatMessages.appendChild(chatMessage)
+  }
+
+  const setVisitorTimeZone = async () => {
+    const pageTimeZone = pageData.dataset.timeZone
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    if (pageTimeZone == timeZone) {
+      return pageTimeZone
+    } else {
+      const response = await fetch(`/ajax/visitors?time_zone=${timeZone}`, { method: 'POST' })
+      const responseText = await response.text()
+      return responseText
+    }
+  }
+
+  const isMobileOrTablet = () => window.innerWidth < 992
+
   const emojiPicker = new EmojiPicker
   const infinieScroll = new InfiniteScroll
   const chatboxTextarea = document.querySelector('.js-chatbox')
   const chatMessages = document.querySelector('.js-chat-messages')
   const chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
   const emojiTrigger = document.querySelector('.js-emoji-trigger');
-  const messageTemplate = document.querySelector('.js-message-template').dataset.template
+  const pageData = document.querySelector('.js-page-data')
+  const messageTemplate = pageData.dataset.template
   const form = document.querySelector('.js-chatbox-form')
   const errorSvg = "<svg xmlns='http://www.w3.org/2000/svg' class='icon-svg chat-messages__item-error-icon' \
                     viewBox='0 0 512 512'><title>Message failed to sent. Please try again.</title><path d='M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z' \
@@ -26,6 +74,12 @@ document.addEventListener('turbolinks:load', () => {
 
   // Chatbox Textarea
   autosize(chatboxTextarea)
+
+  setVisitorTimeZone().then(responseText => {
+    FetchMessages().then(responseText => {
+      ExecuteScript({text: responseText})
+    });
+  })
 
   chatboxTextarea.addEventListener('keypress', event => {
     // When enter or space is pressed
@@ -64,36 +118,6 @@ document.addEventListener('turbolinks:load', () => {
     handleSubmit()
   })
 
-  const handleSubmit = () => {
-    const content = chatboxTextarea.value.trim()
-
-    if (content.length > 0) {
-      const timestamp = Date.now()
-      appendContent(content, timestamp)
-      form.querySelector('.js-timestamp-input').value = timestamp
-      Rails.fire(form, 'submit')
-      chatboxTextarea.value = ''
-      chatboxTextarea.style.height = 'initial'
-      emojiPicker.close()
-      emojiTrigger.classList.remove('btn-icon--active')
-      ScrollToBottom({element: chatMessages})
-    } else {
-      event.preventDefault()
-    }
-
-    chatboxTextarea.focus()
-  }
-
-  const appendContent = (content, timestamp) => {
-    const element = document.createElement('html');
-    element.innerHTML = messageTemplate
-    const chatMessage = element.querySelector('.chat-messages__item')
-    chatMessage.dataset.timestamp = timestamp
-    chatMessage.querySelector('.chat-messages__item-text').innerText = content
-
-    chatMessages.appendChild(chatMessage)
-  }
-
   // Emoji trigger
   emojiTrigger.addEventListener('click', event => {
     let shouldScrollBtm = false
@@ -123,8 +147,6 @@ document.addEventListener('turbolinks:load', () => {
     chatMessage.querySelector('.spinner').remove()
     chatMessage.querySelector('.chat-messages__item-timestamp').innerHTML = errorSvg
   })
-
-  const isMobileOrTablet = () => window.innerWidth < 992
 
   ScrollToBottom({
     element: chatMessages,

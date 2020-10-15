@@ -2,7 +2,7 @@
 
 class Message < ApplicationRecord
   scope :previous_50, ->(id) {
-    where("id < ?", id).order(created_at: :desc).limit(50)
+    where("id < ?", id).limit(50)
   }
 
   belongs_to :sender, polymorphic: true
@@ -11,6 +11,8 @@ class Message < ApplicationRecord
   validates :content, presence: true
 
   after_commit :broadcast_message
+
+  delegate :time_zone, to: :sender
 
   private
 

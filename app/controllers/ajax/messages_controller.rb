@@ -7,7 +7,12 @@ module Ajax
     helper_method :current_user
 
     def index
-      @messages = @conversation.messages.includes(:sender).previous_50(params[:last_message_id])
+      @messages =
+        if params[:last_message_id]
+          @conversation.messages.includes(:sender).previous_50(params[:last_message_id])
+        else
+          @conversation.messages.includes(:sender).limit(50)
+        end
 
       respond_to do |format|
         format.js
