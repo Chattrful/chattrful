@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ChatWidgetController < ActionController::Base
+  before_action :set_raven_context
   before_action :set_conversation
   before_action :set_visitor
   helper_method :current_user
@@ -26,5 +27,10 @@ class ChatWidgetController < ActionController::Base
 
   def current_user
     @visitor
+  end
+
+  def set_raven_context
+    Raven.user_context(visitor_id: session[:visitor_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

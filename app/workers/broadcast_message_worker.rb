@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-class BroadcastMessageWorker
-  include Sidekiq::Worker
-  sidekiq_options queue: "default"
-
+class BroadcastMessageWorker < ApplicationWorker
   def perform(message_id)
     message = Message.find(message_id)
 
