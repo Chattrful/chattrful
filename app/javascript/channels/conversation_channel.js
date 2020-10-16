@@ -1,5 +1,4 @@
 import consumer from './consumer'
-import KTCookie from '../metronic/components/cookie'
 import ScrollToBottom from '../util/scroll_to_bottom'
 
 document.addEventListener('turbolinks:load', () => {
@@ -23,9 +22,9 @@ document.addEventListener('turbolinks:load', () => {
         },
 
         received (data) {
-          const appendedMessage = document.querySelector(`[data-message-id="${data.message_id}"]`)
+          const identifier = document.querySelector('.js-page-data').dataset.identifier
 
-          if (!appendedMessage) {
+          if (identifier != data.sender_identifier) {
             const tempHTML = document.createElement('div')
             tempHTML.innerHTML = data.html
             chatMessages.append(tempHTML.firstElementChild)

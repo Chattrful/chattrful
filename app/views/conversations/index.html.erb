@@ -2,6 +2,7 @@
       class="js-page-data"
       data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"
       data-time-zone="<%= @visitor.time_zone %>"
+      data-identifier="<%= @visitor.identifier %>"
 >
 </span>
 

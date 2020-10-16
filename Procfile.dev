@@ -1,4 +1,4 @@
-web: bundle exec rails server
+web: bundle exec rails server -p 3000
 worker: bundle exec sidekiq -C ./config/sidekiq.yml
-anycable: bundle exec anycable
+rpc: bundle exec anycable
 ws: anycable-go --port=8080
