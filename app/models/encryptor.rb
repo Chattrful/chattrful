@@ -1,8 +1,8 @@
 class Encryptor
   KEY = ActiveSupport::KeyGenerator.new(
-    Rails.application.secrets.secret_key_base
+    "thisismysecret"
   ).generate_key(
-    Rails.application.secrets.secret_key_base,
+    "thisismysecret",
     ActiveSupport::MessageEncryptor.key_len
   ).freeze
 
