@@ -69,7 +69,12 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "anycable-rails", "~> 1.0"
 gem "bundler-audit"
+gem "capistrano", '~> 3.11'
+gem "capistrano-rails", "~> 1.4"
+gem "capistrano-passenger", "~> 0.2.0"
+gem "capistrano-rbenv", "~> 2.1", ">= 2.1.4"
 gem "kaminari"
 gem "rinku"
 gem "sentry-raven"
 gem "sidekiq"
+gem "passenger", ">= 5.3.2", require: "phusion_passenger/rack_handler"
