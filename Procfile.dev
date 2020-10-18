@@ -1,4 +1,4 @@
 web: bundle exec rails server -p 3000
 worker: bundle exec sidekiq -C ./config/sidekiq.yml
 rpc: bundle exec anycable
-ws: anycable-go --port=8080
+ws: anycable-go --port 3334 --headers=cookie,x-api-token,origin

@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Specify AnyCable WebSocket server URL to use by JS client
-  config.action_cable.url = "wss://app.chattrful.com/cable"
+  config.action_cable.url = "wss://app.chattrful.com:3334/cable"
   config.action_cable.allowed_request_origins = ["https://app.chattrful.com"]
 
   # Settings specified here will take precedence over those in config/application.rb.
