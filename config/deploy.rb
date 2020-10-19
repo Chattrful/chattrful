@@ -26,6 +26,8 @@ set :puma_init_active_record, true # Change to false when not using ActiveRecord
 # Default branch is :master
 set :branch, "main"
 
+set :bundle_path, nil
+
 # Default deploy_to directory is /var/www/my_app_name
 
 # Default value for :format is :airbrussh.
