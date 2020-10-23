@@ -30,11 +30,20 @@ document.addEventListener('turbolinks:load', () => {
           const identifier = document.querySelector('.js-page-data').dataset.identifier
 
           if (identifier != data.sender_identifier) {
+
+            let shouldScrollBtm = false
+            if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
+              shouldScrollBtm = true
+            }
+
             const tempHTML = document.createElement('div')
             tempHTML.innerHTML = data.html
             tempHTML.querySelector('.chat-messages__item-timestamp').innerText = currentTimestamp()
             chatMessages.append(tempHTML.firstElementChild)
-            ScrollToBottom({element: chatMessages})
+
+            if (shouldScrollBtm) {
+              ScrollToBottom({element: chatMessages})
+            }
           }
         }
       }
