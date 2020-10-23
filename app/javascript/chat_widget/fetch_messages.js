@@ -5,11 +5,12 @@ const createSpinner = () => {
   chatMessages.prepend(tempHTML.firstElementChild)
 }
 
-const fetchMessagesAsync = async (lastMessageId) => {
+export default function FetchMessages ({lastMessageId} = {}) {
+  createSpinner()
   const chatMessages = document.querySelector('.js-chat-messages')
   const url = lastMessageId ? `${chatMessages.dataset.url}?last_message_id=${lastMessageId}` : chatMessages.dataset.url
 
-  let response = await fetch(
+  return fetch(
     url,
     {
       headers: {
@@ -17,12 +18,4 @@ const fetchMessagesAsync = async (lastMessageId) => {
       }
     }
   )
-
-  let text = await response.text()
-  return text
-}
-
-export default function FetchMessages ({lastMessageId} = {}) {
-  createSpinner()
-  return fetchMessagesAsync(lastMessageId)
 }

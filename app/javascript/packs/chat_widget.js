@@ -43,16 +43,12 @@ document.addEventListener('turbolinks:load', () => {
     chatMessages.appendChild(chatMessage)
   }
 
-  const setVisitorTimeZone = async () => {
-    const pageTimeZone = pageData.dataset.timeZone
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const setVisitorTimeZone = () => {
+    const userTimeZoneOffset = pageData.dataset.timeZoneOffset
+    const timeZoneOffset = - new Date().getTimezoneOffset() / 60
 
-    if (pageTimeZone == timeZone) {
-      return pageTimeZone
-    } else {
-      const response = await fetch(`/ajax/visitors?time_zone=${timeZone}`, { method: 'POST' })
-      const responseText = await response.text()
-      return responseText
+    if (userTimeZoneOffset != timeZoneOffset) {
+      return fetch(`/ajax/visitors?time_zone_offset=${timeZoneOffset}`, { method: 'POST' })
     }
   }
 
@@ -75,11 +71,16 @@ document.addEventListener('turbolinks:load', () => {
   // Chatbox Textarea
   autosize(chatboxTextarea)
 
-  setVisitorTimeZone().then(responseText => {
-    FetchMessages().then(responseText => {
-      ExecuteScript({text: responseText})
-    });
-  })
+  const init = async () => {
+    const setTimeZoneResponse = await setVisitorTimeZone()
+    await setTimeZoneResponse
+
+    const fetchMessagesResponse = await FetchMessages()
+    const text = await fetchMessagesResponse.text()
+    ExecuteScript({text: text})
+  }
+
+  init()
 
   chatboxTextarea.addEventListener('keypress', event => {
     // When enter or space is pressed

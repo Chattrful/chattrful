@@ -1,4 +1,6 @@
 class Visitor < ApplicationRecord
+  DEFAULT_TIME_ZONE = "Etc/UTC"
+
   has_many :messages, as: :sender
 
   def identifier

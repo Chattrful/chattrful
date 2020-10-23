@@ -1,7 +1,7 @@
 <span tabindex="-1"
       class="js-page-data"
       data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"
-      data-time-zone="<%= @visitor.time_zone %>"
+      data-time-zone-offset="<%= @visitor.time_zone_offset %>"
       data-identifier="<%= @visitor.identifier %>"
 >
 </span>
