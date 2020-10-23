@@ -12,7 +12,7 @@
     </div>
   </div>
 <% else %>
-  <div tabindex="-1" class="chat-messages__item <%= "chat-messages__item--mine" if defined?(current_user) && message.sender == current_user %>" data-message-id="<%= message.id %>">
+  <div tabindex="-1" class="chat-messages__item <%= "chat-messages__item--mine" if message.sender == user %>" data-message-id="<%= message.id %>">
     <div class="chat-messages__item-content">
       <div>
         <span class="chat-messages__item-text">
@@ -23,7 +23,7 @@
       </div>
 
       <div class="chat-messages__item-timestamp">
-        <%= message_timestamp(message) %>
+        <%= message_timestamp(message: message, time_zone: user&.time_zone) %>
       </div>
     </div>
   </div>

@@ -6,7 +6,10 @@ class BroadcastMessageWorker < ApplicationWorker
 
     html = ApplicationController.render(
       partial: "messages/message",
-      locals: {message: message}
+      locals: {
+        message: message,
+        user: nil
+      }
     )
 
     ActionCable.server.broadcast(

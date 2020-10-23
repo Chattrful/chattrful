@@ -14,8 +14,6 @@ class Message < ApplicationRecord
 
   after_commit :broadcast_message
 
-  delegate :time_zone, to: :sender
-
   def sender_identifier
     Digest::SHA256.hexdigest("#{SALT}#{sender_type}#{sender_id}")
   end
