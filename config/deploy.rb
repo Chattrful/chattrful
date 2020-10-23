@@ -7,8 +7,6 @@ set :repo_url, "git@github.com:Chattrful/chattrful.git"
 set :puma_threads, [4, 16]
 set :puma_workers, 0
 
-shared_path = "/var/apps/chattrful/shared"
-release_path = "/var/apps/chattrful/current"
 set :pty, true
 set :use_sudo, false
 set :stage, :production
@@ -26,7 +24,7 @@ set :puma_init_active_record, true # Change to false when not using ActiveRecord
 # Default branch is :master
 set :branch, "main"
 
-set :bundle_path, nil
+set :bundle_path, "/home/deployer/.rbenv/versions/2.7.1/bin/bundle"
 
 # Default deploy_to directory is /var/www/my_app_name
 
