@@ -65,6 +65,18 @@ namespace :puma do
   end
 
   before :start, :make_dirs
+
+  # https://stackoverflow.com/questions/44763777/capistrano-pumarestart-not-working-but-pumastart-does
+  # https://github.com/seuros/capistrano-puma/issues/237
+  Rake::Task[:restart].clear_actions
+
+  desc "Overwritten puma:restart task"
+  task :restart do
+    puts "Overwriting puma:restart to ensure that puma is running. Effectively, we are just starting Puma."
+    puts "A solution to this should be found."
+    invoke "puma:stop"
+    invoke "puma:start"
+  end
 end
 
 namespace :deploy do
@@ -76,14 +88,6 @@ namespace :deploy do
         puts "Run `git push` to sync changes."
         exit
       end
-    end
-  end
-
-  desc "Initial Deploy"
-  task :initial do
-    on roles(:app) do
-      before "deploy:restart", "puma:start"
-      invoke "deploy"
     end
   end
 
