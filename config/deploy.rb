@@ -24,8 +24,6 @@ set :puma_init_active_record, true # Change to false when not using ActiveRecord
 # Default branch is :master
 set :branch, "main"
 
-set :bundle_path, "/home/deployer/.rbenv/versions/2.7.1/bin/bundle"
-
 # Default deploy_to directory is /var/www/my_app_name
 
 # Default value for :format is :airbrussh.
@@ -42,7 +40,7 @@ set :bundle_path, "/home/deployer/.rbenv/versions/2.7.1/bin/bundle"
 append :linked_files, "config/database.yml", "config/master.key"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", ".bundle", "public/system", "public/uploads"
+# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "public/uploads"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
