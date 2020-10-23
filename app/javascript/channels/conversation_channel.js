@@ -1,8 +1,13 @@
 import consumer from './consumer'
 import ScrollToBottom from '../util/scroll_to_bottom'
+import { format } from 'date-fns'
 
 document.addEventListener('turbolinks:load', () => {
   const chatMessages = document.querySelector('.js-chat-messages')
+
+  const currentTimestamp = () => {
+    return format(new Date(), 'hh:mm a')
+  }
 
   if (chatMessages) {
     consumer.subscriptions.create(
@@ -27,6 +32,7 @@ document.addEventListener('turbolinks:load', () => {
           if (identifier != data.sender_identifier) {
             const tempHTML = document.createElement('div')
             tempHTML.innerHTML = data.html
+            tempHTML.querySelector('.chat-messages__item-timestamp').innerText = currentTimestamp()
             chatMessages.append(tempHTML.firstElementChild)
             ScrollToBottom({element: chatMessages})
           }

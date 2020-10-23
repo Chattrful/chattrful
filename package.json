@@ -8,6 +8,7 @@
     "@rails/webpacker": "4.3.0",
     "autosize": "^4.0.2",
     "bootstrap": "^4.5.2",
+    "date-fns": "^2.16.1",
     "debounce": "^1.2.0",
     "fuzzysort": "^1.1.4",
     "jquery": "^3.5.1",
