@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Ajax
-  class MessagesController < AjaxController
+module Ajax::Visitor
+  class MessagesController < VisitorConversationsController
     before_action :conversation
 
     def index
@@ -13,7 +13,7 @@ module Ajax
         end
 
       respond_to do |format|
-        format.js
+        format.js { render "ajax/messages/index.js.erb", locals: {user: current_visitor} }
       end
     end
 
@@ -23,14 +23,14 @@ module Ajax
       @timestamp = params[:timestamp]
 
       respond_to do |format|
-        format.js
+        format.js { render "ajax/messages/create.js.erb", locals: {user: current_visitor} }
       end
     end
 
     private
 
     def conversation
-      @conversation ||= Conversation.find_by_uuid(params[:conversation_id])
+      @conversation ||= current_account.conversations.find_by_uuid(params[:conversation_id])
     end
 
     def message_params

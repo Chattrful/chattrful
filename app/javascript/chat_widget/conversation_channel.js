@@ -1,15 +1,15 @@
-import consumer from './consumer'
+import consumer from '../channels/consumer'
 import ScrollToBottom from '../util/scroll_to_bottom'
 import { format } from 'date-fns'
 
-document.addEventListener('turbolinks:load', () => {
+export default function ConversationChannel() {
   const chatMessages = document.querySelector('.js-chat-messages')
 
   const currentTimestamp = () => {
     return format(new Date(), 'hh:mm a')
   }
 
-  if (chatMessages) {
+  return (
     consumer.subscriptions.create(
       {
         channel: 'ConversationChannel',
@@ -49,5 +49,5 @@ document.addEventListener('turbolinks:load', () => {
         }
       }
     )
-  }
-})
+  )
+}

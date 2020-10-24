@@ -19,7 +19,6 @@ export default class InfiniteScroll {
         ExecuteScript({text: text})
 
         this.scrolling = false
-        console.log("after fetch" + this.scrolling)
       }
     })
   }

@@ -9,6 +9,8 @@ import EmojiPicker from '../chat_widget/emoji_picker'
 import InfiniteScroll from '../chat_widget/infinite_scroll'
 import FetchMessages from '../chat_widget/fetch_messages'
 import ExecuteScript from '../util/execute_script'
+import InitVisitorAccount from '../chat_widget/init_visitor_account'
+import ConversationChannel from '../chat_widget/conversation_channel'
 
 Rails.start()
 
@@ -43,13 +45,12 @@ document.addEventListener('turbolinks:load', () => {
     chatMessages.appendChild(chatMessage)
   }
 
-  const setVisitorTimeZone = () => {
-    const userTimeZoneOffset = pageData.dataset.timeZoneOffset
-    const timeZoneOffset = - new Date().getTimezoneOffset() / 60
-
-    if (userTimeZoneOffset != timeZoneOffset) {
-      return fetch(`/ajax/visitors?time_zone_offset=${timeZoneOffset}`, { method: 'POST' })
-    }
+  const handleVisitorAccountData = (data) => {
+    localStorage.setItem('chattrful_session', data.chattrful_session)
+    pageData.dataset.identifier = data.identifier
+    pageData.dataset.conversationId = data.conversation_id
+    chatMessages.dataset.url = data.messages_path
+    form.action = data.messages_path
   }
 
   const isMobileOrTablet = () => window.innerWidth < 992
@@ -72,16 +73,25 @@ document.addEventListener('turbolinks:load', () => {
   autosize(chatboxTextarea)
 
   const init = async () => {
-    const setTimeZoneResponse = await setVisitorTimeZone()
-    await setTimeZoneResponse
+    const initVisitorConversationResponse = await InitVisitorAccount()
+    const visitorAccountData = await initVisitorConversationResponse.json()
+    handleVisitorAccountData(visitorAccountData)
+
+    ConversationChannel()
 
     const fetchMessagesResponse = await FetchMessages()
     const text = await fetchMessagesResponse.text()
     ExecuteScript({text: text})
+
+    ScrollToBottom({
+      element: chatMessages,
+      delay: 100
+    })
   }
 
   init()
 
+  // Chatbox
   chatboxTextarea.addEventListener('keypress', event => {
     // When enter or space is pressed
     if (event.keyCode == 32 || event.keyCode == 13) {
@@ -115,10 +125,12 @@ document.addEventListener('turbolinks:load', () => {
     }
   })
 
+
   // Submit button
   chatboxSubmitButton.addEventListener('click', event => {
     handleSubmit()
   })
+
 
   // Emoji trigger
   emojiTrigger.addEventListener('click', event => {
@@ -148,10 +160,5 @@ document.addEventListener('turbolinks:load', () => {
     let chatMessage = document.querySelector(`[data-timestamp="${timestamp}"]`)
     chatMessage.querySelector('.spinner').remove()
     chatMessage.querySelector('.chat-messages__item-timestamp').innerHTML = errorSvg
-  })
-
-  ScrollToBottom({
-    element: chatMessages,
-    delay: 100
   })
 })
