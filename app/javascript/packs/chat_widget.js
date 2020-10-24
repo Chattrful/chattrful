@@ -106,7 +106,8 @@ document.addEventListener('turbolinks:load', () => {
   })
 
   chatboxTextarea.addEventListener('focus', event => {
-    if (chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight) {
+    // https://medium.com/beamdental/scrolltop-and-other-bugs-the-never-ending-battle-against-bugs-4815e6a2b00a
+    if (chatMessages.scrollHeight - Math.ceil(chatMessages.scrollTop) <= chatMessages.clientHeight) {
       ScrollToBottom({
         element: chatMessages,
         delay: 250
