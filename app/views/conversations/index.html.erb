@@ -1,56 +1,25 @@
-<span tabindex="-1"
-      class="js-page-data"
-      data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"
-      data-time-zone-offset="<%= @visitor.time_zone_offset %>"
-      data-identifier="<%= @visitor.identifier %>"
-      data-create-message-url=
->
-</span>
-
-<div class="chat-widget" data-conversation-id="<%= @conversation.uuid %>">
-  <header tabindex="-1" class="chat-widget__header">
-    <div class="chat-widget__header-details">
-      <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
-      <div>
-        <span class="label label-dot label-success"></span>
-        <span class="font-weight-bold text-muted font-size-sm">Active</span>
+<div class="d-flex flex-row h-100">
+  <div class="flex-row-auto offcanvas-mobile w-350px w-xl-400px offcanvas-mobile-on">
+    <div class="card card-custom h-100">
+      <div class="card-body p-0">
+        <% @conversations.each do |conversation| %>
+          <div class="d-flex align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center">
+              <div class="d-flex flex-column">
+                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">Matt Pears</a>
+                <span class="text-muted font-weight-bold font-size-sm">Head of Development</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+              <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div>
-      <button tabindex="-1" type="button" class="btn-icon btn-icon--close btn-icon--rounded">
-        <svg class="svg-icon svg-icon--close" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/></svg>
-      </button>
-    </div>
-  </header>
+  </div>
 
-  <div class="chat-messages js-chat-messages" data-last-message-id="" data-url="<%= ajax_conversation_messages_path(@conversation.uuid, format: :js) %>" data-scroll="true"></div>
-
-  <footer class="chat-widget__footer" data-sticky-container>
-    <div class="emojis">
-      <div class="emojis__search">
-        <input class="emojis__search-input js-emoji-search-input" type="text" placeholder="Search Emoji">
-        <button tabindex="-1" type="button" class="btn-icon btn-icon--hover-none emojis__search-reset-btn js-emoji-search-reset-btn">
-          <svg class="svg-icon svg-icon--close" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;'/></svg>
-        </button>
-      </div>
-
-      <div class="emojis__list list"></div>
-    </div>
-
-    <%= form_with model: Message.new, url: ajax_conversation_messages_path(@conversation.uuid, format: :js), html: { class: 'js-chatbox-form chatbox', autocomplete: 'off' }, local: false do |f| %>
-      <%= hidden_field_tag :timestamp, nil, class: 'js-timestamp-input' %>
-
-      <button tabindex="-1" type="button" class="js-emoji-trigger btn-icon btn-icon--rounded">
-        <svg class="svg-icon svg-icon--smiley" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><title>ionicons-v5-i</title><circle cx='184' cy='232' r='24'/><path d='M256.05,384c-45.42,0-83.62-29.53-95.71-69.83A8,8,0,0,1,168.16,304H343.85a8,8,0,0,1,7.82,10.17C339.68,354.47,301.47,384,256.05,384Z'/><circle cx='328' cy='232' r='24'/><circle cx='256' cy='256' r='208'/></svg>
-      </button>
-
-      <div class="chatbox__input-wrapper">
-        <%= f.text_area :content, class: 'js-chatbox chatbox__input', rows: 1, data: { selection_start: 0 }, placeholder: 'Type a message', tabindex: '1' %>
-      </div>
-
-      <button tabindex="2" type="button" class="js-chatbox-submit btn-icon btn-icon--hover-none">
-        <svg class="svg-icon svg-icon--send" xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M470.3,271.15,43.16,447.31a7.83,7.83,0,0,1-11.16-7V327a8,8,0,0,1,6.51-7.86l247.62-47c17.36-3.29,17.36-28.15,0-31.44l-247.63-47a8,8,0,0,1-6.5-7.85V72.59c0-5.74,5.88-10.26,11.16-8L470.3,241.76A16,16,0,0,1,470.3,271.15Z'/></svg>
-      </button>
-    <% end %>
-  </footer>
+  <div class="flex-row-fluid ml-lg-8">
+    <%= render "conversations/show", visitor: false %>
+  </div>
 </div>

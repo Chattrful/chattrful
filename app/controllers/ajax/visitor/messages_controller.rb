@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Ajax::Visitor
-  class MessagesController < VisitorConversationsController
+  class MessagesController < VisitorController
     before_action :conversation
 
     def index

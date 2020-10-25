@@ -13,6 +13,7 @@ class Message < ApplicationRecord
   validates :content, presence: true
 
   after_commit :broadcast_message
+  after_create :touch_conversation
 
   def sender_identifier
     Digest::SHA256.hexdigest("#{SALT}#{sender_type}#{sender_id}")
@@ -22,5 +23,9 @@ class Message < ApplicationRecord
 
   def broadcast_message
     BroadcastMessageWorker.perform_async(id)
+  end
+
+  def touch_conversation
+    conversation.touch(:last_message_received_at)
   end
 end

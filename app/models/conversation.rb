@@ -1,6 +1,12 @@
 class Conversation < ApplicationRecord
   belongs_to :account
-  has_many :messages, -> { order(created_at: :desc)}, dependent: :destroy
+  has_many :messages, -> { order(created_at: :desc) }, dependent: :destroy
+
+  scope :latest, -> do
+    where.not(last_message_received_at: nil)
+      .order(last_message_received_at: :desc)
+  end
+
   before_create :assign_uuid
 
   private

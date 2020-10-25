@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Ajax::Visitor
-  class AccountsController < VisitorConversationsController
+  class AccountsController < VisitorController
     def create
       visitor_account = VisitorAccountService.new(
         time_zone_offset: permitted_params[:time_zone_offset],
