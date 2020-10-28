@@ -45,13 +45,12 @@ class VisitorAccountService
   end
 
   def set_visitor_time_zone(visitor:, time_zone_offset:)
-    time_zone = ActiveSupport::TimeZone[(time_zone_offset * 60).minutes]&.tzinfo&.name
+    time_zone =
+      ActiveSupport::TimeZone[(time_zone_offset * 60).minutes]&.tzinfo&.name ||
+      Visitor::DEFAULT_TIME_ZONE
 
-    if visitor.time_zone_offset != time_zone_offset
-      visitor.update_columns(
-        time_zone: time_zone || Visitor::DEFAULT_TIME_ZONE,
-        time_zone_offset: time_zone_offset
-      )
+    if time_zone != visitor.time_zone
+      visitor.update_columns(time_zone: time_zone)
     end
   end
 

@@ -2,5 +2,10 @@
 @import 'fontawesome';
 
 @import 'custom/layout';
+@import 'custom/devise';
 
 @import 'chat_widget';
+
+.checkbox > span {
+  margin-right: 0.75rem;
+}
