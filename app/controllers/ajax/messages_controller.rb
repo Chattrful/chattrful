@@ -3,6 +3,7 @@
 module Ajax
   class MessagesController < ApplicationController
     before_action :conversation
+    before_action :set_user
 
     def index
       @messages =
@@ -30,11 +31,15 @@ module Ajax
     private
 
     def conversation
-      @conversation ||= Conversation.find_by_uuid(params[:conversation_id])
+      @conversation ||= current_user.account.conversations.find_by_uuid(params[:conversation_id])
     end
 
     def message_params
-      params.require(:message).permit(:content).merge(sender: current_visitor)
+      params.require(:message).permit(:content).merge(sender: current_user)
+    end
+
+    def set_user
+      @user = current_user
     end
   end
 end

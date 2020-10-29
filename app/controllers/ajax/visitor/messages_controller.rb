@@ -3,6 +3,7 @@
 module Ajax::Visitor
   class MessagesController < VisitorController
     before_action :conversation
+    before_action :set_user
 
     def index
       @messages =
@@ -13,7 +14,7 @@ module Ajax::Visitor
         end
 
       respond_to do |format|
-        format.js { render "ajax/messages/index.js.erb", locals: {user: current_visitor} }
+        format.js { render "ajax/messages/index.js.erb" }
       end
     end
 
@@ -23,7 +24,7 @@ module Ajax::Visitor
       @timestamp = params[:timestamp]
 
       respond_to do |format|
-        format.js { render "ajax/messages/create.js.erb", locals: {user: current_visitor} }
+        format.js { render "ajax/messages/create.js.erb" }
       end
     end
 
@@ -35,6 +36,10 @@ module Ajax::Visitor
 
     def message_params
       params.require(:message).permit(:content).merge(sender: current_visitor)
+    end
+
+    def set_user
+      @user = current_visitor
     end
   end
 end

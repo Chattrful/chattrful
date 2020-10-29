@@ -12,7 +12,12 @@
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'base', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% if content_for?(:javacsript_packs) %>
+      <%= yield(:javacsript_packs) %>
+    <% end %>
   </head>
 
   <body id="kt_body"

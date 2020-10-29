@@ -3,11 +3,6 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require('@rails/ujs').start()
-require('turbolinks').start()
-require('@rails/activestorage').start()
-require('channels')
-
 import 'bootstrap'
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -17,11 +12,21 @@ import 'bootstrap'
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+require('./chat_widget')
 require('metronic/components/app')
 require('metronic/layout/initialize')
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener("DOMContentLoaded", () => {
+  const $flashMessage = $(".flash-message")
+  let delay
+
+  if (parseInt($flashMessage.data('wordCount')) > 8) {
+    delay = 10000
+  } else {
+    delay = 6000
+  }
+
   setTimeout(() => {
     $(".flash-message").alert('close')
-  }, 8000);
+  }, delay);
 })

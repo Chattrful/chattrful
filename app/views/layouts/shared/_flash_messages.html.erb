@@ -1,5 +1,5 @@
 <% flash.each do |name, msg| %>
-  <div class="flash-message alert alert-custom <%= name == "alert" ? "alert-light-danger" : "alert-light-info" %> alert-notice fade show shadow p-3 mb-0" role="alert">
+  <div class="flash-message alert alert-custom <%= name == "alert" ? "alert-light-danger" : "alert-light-info" %> alert-notice fade show shadow p-3 mb-0" role="alert" data-word-count="<%= msg.split(' ').size %>">
     <div class="alert-icon">
       <i class="<%= name == "alert" ? "far fa-exclamation-circle" : "far fa-check-circle" %>"></i>
     </div>

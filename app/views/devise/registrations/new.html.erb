@@ -1,3 +1,7 @@
+<% content_for(:javascript_packs) do %>
+  <%= javascript_pack_tag "sign_up", 'data-turbolinks-track': 'reload' %>
+<% end %>
+
 <div class="pb-13 pt-lg-0 pt-5">
   <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Sign Up for a Chattrful Account</h3>
 
@@ -11,6 +15,8 @@
   <%= f.input :password, input_html: { autocomplete: "new-password", class: "form-control-solid h-auto p-5 rounded-lg" }, label_html: { class: "font-size-h6 font-weight-bolder text-dark" } %>
   <%= f.input :password_confirmation, input_html: { autocomplete: "new-password", class: "form-control-solid h-auto p-5 rounded-lg" }, label_html: { class: "font-size-h6 font-weight-bolder text-dark" } %>
 
-
+  <%= hidden_field_tag :time_zone_offset %>
   <%= f.submit "Sign Up", class: "btn btn-primary font-weight-bolder btn-block font-size-h6 px-8 py-4 my-3 mr-3" %>
 <% end %>
+
+

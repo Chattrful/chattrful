@@ -1,9 +1,4 @@
-require('turbolinks').start()
-require('@rails/activestorage').start()
-require('channels')
-
 import autosize from 'autosize'
-import Rails from '@rails/ujs'
 import ScrollToBottom from '../util/scroll_to_bottom'
 import EmojiPicker from '../chat_widget/emoji_picker'
 import InfiniteScroll from '../chat_widget/infinite_scroll'
@@ -11,8 +6,7 @@ import FetchMessages from '../chat_widget/fetch_messages'
 import ExecuteScript from '../util/execute_script'
 import InitVisitorAccount from '../chat_widget/init_visitor_account'
 import ConversationChannel from '../chat_widget/conversation_channel'
-
-Rails.start()
+import Rails from '@rails/ujs'
 
 document.addEventListener('turbolinks:load', () => {
   const handleSubmit = () => {
@@ -73,9 +67,11 @@ document.addEventListener('turbolinks:load', () => {
   autosize(chatboxTextarea)
 
   const init = async () => {
-    const initVisitorConversationResponse = await InitVisitorAccount()
-    const visitorAccountData = await initVisitorConversationResponse.json()
-    handleVisitorAccountData(visitorAccountData)
+    if (pageData.dataset.identifier.length < 1) {
+      const initVisitorConversationResponse = await InitVisitorAccount()
+      const visitorAccountData = await initVisitorConversationResponse.json()
+      handleVisitorAccountData(visitorAccountData)
+    }
 
     ConversationChannel()
 

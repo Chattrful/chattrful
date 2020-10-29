@@ -1,5 +1,5 @@
 <% if @message.persisted? %>
-  var html = '<%= j render 'messages/message', message: @message, user: user, cached: true  %>';
+  var html = '<%= j render 'messages/message', message: @message, user: @user, cached: true  %>';
   var appendedMessage = document.querySelector('[data-timestamp="<%= @timestamp %>"]');
   appendedMessage.outerHTML = html;
 <% end %>
