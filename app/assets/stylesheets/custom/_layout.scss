@@ -5,3 +5,12 @@
 .brand-logo img {
   max-height: 20px;
 }
+
+.flash-message {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  margin-left: 1rem;
+  max-width: 500px;
+  z-index: 10000;
+}

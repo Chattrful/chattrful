@@ -1,0 +1,15 @@
+<% flash.each do |name, msg| %>
+  <div class="flash-message alert alert-custom <%= name == "alert" ? "alert-light-danger" : "alert-light-info" %> alert-notice fade show shadow p-3 mb-0" role="alert">
+    <div class="alert-icon">
+      <i class="<%= name == "alert" ? "far fa-exclamation-circle" : "far fa-check-circle" %>"></i>
+    </div>
+    <div class="alert-text font-weight-bolder"><%= msg.html_safe %></div>
+    <div class="alert-close">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+          <i class="fas fa-times"></i>
+        </span>
+      </button>
+    </div>
+  </div>
+<% end %>

@@ -14,12 +14,11 @@
   }
 
   &__content {
+    width: 100%;
+
     @include media-breakpoint-up(lg) {
       width: 100%;
       max-width: 500px;
-    }
-
-    @include media-breakpoint-down(xs) {
     }
   }
 

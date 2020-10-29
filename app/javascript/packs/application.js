@@ -19,3 +19,9 @@ import 'bootstrap'
 
 require('metronic/components/app')
 require('metronic/layout/initialize')
+
+document.addEventListener('turbolinks:load', () => {
+  setTimeout(() => {
+    $(".flash-message").alert('close')
+  }, 8000);
+})
