@@ -27,24 +27,17 @@
         <%= render 'layouts/shared/aside' %>
 
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-          <div id="kt_header" class="header header-fixed">
-            <div class="container-fluid d-flex align-items-stretch justify-content-between">
-              <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
-                <div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
-                </div>
-              </div>
-
-              <div class="topbar">
-              </div>
-            </div>
-          </div>
+          <%= render 'layouts/shared/header' %>
 
           <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-            <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-            </div>
+            <% if content_for?(:subheader) %>
+              <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+               <%= yield(:subheader) %>
+              </div>
+            <% end %>
 
             <div class="d-flex flex-column-fluid">
-              <div class="container">
+              <div class="<%= @container_fluid ? "container-fluid" : "container" %>">
                 <%= yield %>
               </div>
             </div>

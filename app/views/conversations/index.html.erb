@@ -1,5 +1,15 @@
+<% content_for :subheader do %>
+  <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+    <div class="d-flex align-items-center flex-wrap mr-2">
+      <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Conversations</h5>
+      </div>
+    <div class="d-flex align-items-center flex-wrap">
+    </div>
+  </div>
+<% end %>
+
 <div class="d-flex flex-row h-100">
-  <div class="flex-row-auto offcanvas-mobile w-350px w-xl-400px offcanvas-mobile-on">
+  <div class="flex-row-auto w-350px w-xl-400px">
     <div class="card card-custom h-100">
       <div class="card-body p-0">
         <% @conversations.each do |conversation| %>

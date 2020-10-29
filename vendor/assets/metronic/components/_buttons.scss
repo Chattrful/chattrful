@@ -183,7 +183,7 @@
 
 		&:after {
 			margin-left: 0.5rem#{'/*rtl:ignore*/'};
-			@include ki(get($ki-types, arrowDown));
+			@include fas("\f078");
 		}
 
 		&:before {
