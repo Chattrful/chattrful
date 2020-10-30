@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :conversations, only: []
+  resources :conversations, only: [:index, :show]
   resource :metronic, controller: "metronic", only: :show
 
   resources :visitor_conversations, only: :show

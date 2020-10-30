@@ -6,4 +6,8 @@ class Visitor < ApplicationRecord
   def identifier
     Digest::SHA256.hexdigest("#{Message::SALT}Visitor#{id}")
   end
+
+  def name
+    email || "Unknown visitor ##{id}"
+  end
 end

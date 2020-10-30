@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_151659) do
+ActiveRecord::Schema.define(version: 2020_10_30_053014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,16 @@ ActiveRecord::Schema.define(version: 2020_10_29_151659) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "uuid"
     t.datetime "last_message_received_at"
+    t.bigint "starter_id"
+    t.string "starter_type"
+    t.text "last_message_content"
+    t.string "last_message_sender_type"
+    t.bigint "last_message_sender_id"
     t.index ["account_id"], name: "index_conversations_on_account_id"
+    t.index ["last_message_sender_id"], name: "index_conversations_on_last_message_sender_id"
+    t.index ["last_message_sender_type"], name: "index_conversations_on_last_message_sender_type"
+    t.index ["starter_id"], name: "index_conversations_on_starter_id"
+    t.index ["starter_type"], name: "index_conversations_on_starter_type"
     t.index ["uuid"], name: "index_conversations_on_uuid"
   end
 

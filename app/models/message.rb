@@ -26,6 +26,11 @@ class Message < ApplicationRecord
   end
 
   def touch_conversation
-    conversation.touch(:last_message_received_at)
+    conversation.update_columns(
+      last_message_received_at: created_at,
+      last_message_content: content,
+      last_message_sender_type: sender_type,
+      last_message_sender_id: sender_id
+    )
   end
 end
