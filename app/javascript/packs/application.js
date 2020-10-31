@@ -14,9 +14,10 @@ import 'bootstrap'
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require('./chat_widget')
+// require('./chat_widget')
 require('metronic/components/app')
 require('metronic/layout/initialize')
+require('custom/conversations')
 
 document.addEventListener("DOMContentLoaded", () => {
   const $flashMessage = $(".flash-message")

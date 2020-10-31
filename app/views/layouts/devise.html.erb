@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" class="notranslate" translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="google" content="notranslate" />
-    <title>Chattrful</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' >
-    <meta name="description" content="" />
     <link rel="canonical" href="<%= request.original_url %>" />
+    <title>Chattrful</title>
+    <meta name="description" content="" />
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= action_cable_meta_tag %>
+    <%= meta_tags %>
+    <%= favicon_tags %>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <% if content_for?(:javascript_packs) %>
-      <%= yield(:javascript_packs) %>
-    <% end %>
+    <%= javascript_pack_tag 'base', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag "sign_up", 'data-turbolinks-track': 'reload' %>
   </head>
 
-    <body id="kt_body"
+  <body id="kt_body"
         class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed
           aside-enabled aside-fixed aside-minimize-hoverable page-loading devise"
-    >
+  >
     <div class="d-flex flex-column flex-root position-relative">
       <%= render "layouts/shared/flash_messages" %>
 

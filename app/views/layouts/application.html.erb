@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="notranslate" translate="no">
   <head>
-    <meta charset="utf-8" />
-    <title>Chattrful</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' >
-
-    <meta name="description" content="" />
     <link rel="canonical" href="<%= request.original_url %>" />
+    <title>Chattrful</title>
+    <meta name="description" content="" />
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= action_cable_meta_tag %>
+    <%= meta_tags %>
+    <%= favicon_tags %>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <%= javascript_pack_tag 'base', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'chat_widget', 'data-turbolinks-track': 'reload' %>
 
-    <% if content_for?(:javacsript_packs) %>
-      <%= yield(:javacsript_packs) %>
-    <% end %>
   </head>
 
   <body id="kt_body"

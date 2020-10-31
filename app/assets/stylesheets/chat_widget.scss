@@ -30,23 +30,6 @@ html, body {
   box-sizing: border-box;
 }
 
-.scrollbar {
-  &::-webkit-scrollbar {
-    width: 6px!important;
-    height: 6px!important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,.2);
-  }
-
-  &::-webkit-scrollbar-track {
-    background: hsla(0,0%,100%,.1);
-  }
-
-  scrollbar-color:rgba(0,0,0,.2) hsla(0,0%,100%,.1);
-  scrollbar-width:thin
-}
 
 a {
   outline: none;
@@ -98,3 +81,4 @@ a {
 @import 'chat_widget/emoji';
 @import 'chat_widget/chatbox';
 @import 'chat_widget/messages';
+@import 'custom/scrollbar';
