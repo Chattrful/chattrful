@@ -11,13 +11,26 @@
 <div class="d-flex flex-row h-100">
   <div class="flex-row-auto w-350px w-xl-400px">
     <div class="card card-custom h-100">
-      <div class="card-body p-0">
+      <div class="card-body p-0 position-relative scrollbar scrollbar-y">
         <%= render 'list', conversations: @conversations, active: nil %>
       </div>
     </div>
   </div>
 
-  <div class="flex-row-fluid ml-lg-8">
-    <%= render "conversations/show", visitor: false %>
+  <div class="flex-row-fluid ml-lg-8 chat-widget-container">
+    <div class="card card-custom h-100">
+      <div class="card-body p-3 d-flex align-items-center justify-content-center">
+        <div class="text-center">
+          <% if @conversations.present? %>
+            <h1>You have open conversations</h1>
+            <%= image_tag "conversations/active_conversations.png", class: "img-fluid w-75 d-block m-auto" %>
+          <% else %>
+            <h1>No open conversations</h1>
+            <h4 class="text-muted">You're all caught up!</h4>
+            <%= image_tag "conversations/no_conversations.png", class: "img-fluid w-75 d-block m-auto" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

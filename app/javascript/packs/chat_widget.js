@@ -49,16 +49,17 @@ document.addEventListener('turbolinks:load', () => {
 
   const isMobileOrTablet = () => window.innerWidth < 992
 
-  let emojiPicker// = new EmojiPicker
-  let infinieScroll// = new InfiniteScroll
+  let emojiPicker
+  let infinieScroll
+  let subscription
+  let messageTemplate
+
   let chatboxTextarea = document.querySelector('.js-chatbox')
   let chatMessages = document.querySelector('.js-chat-messages')
   let chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
   let emojiTrigger = document.querySelector('.js-emoji-trigger');
   let pageData = document.querySelector('.js-page-data')
-  let messageTemplate = pageData.dataset.template
   let form = document.querySelector('.js-chatbox-form')
-  let subscription
   const errorSvg = "<svg xmlns='http://www.w3.org/2000/svg' class='icon-svg chat-messages__item-error-icon' \
                     viewBox='0 0 512 512'><title>Message failed to sent. Please try again.</title><path d='M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z' \
                     fill='none' stroke-miterlimit='10' stroke-width='32'/><path d='M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z' \
@@ -168,14 +169,20 @@ document.addEventListener('turbolinks:load', () => {
     infinieScroll = new InfiniteScroll
   }
 
-  init()
+  if (chatMessages) {
+    messageTemplate = pageData.dataset.template
+    init()
+  }
 
   const conversationLists = document.querySelectorAll('.conversation-list__item')
 
   conversationLists.forEach(conversationList => {
     conversationList.addEventListener('click', event => {
       const id = event.currentTarget.dataset.id
-      subscription.unsubscribe()
+
+      if (subscription) {
+        subscription.unsubscribe()
+      }
 
       fetch(`/conversations/${id}.js`)
         .then(response => response.json())
