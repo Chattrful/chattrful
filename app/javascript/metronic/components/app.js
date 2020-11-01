@@ -70,7 +70,7 @@ var KTApp = (function () {
   }
 
   var initScroll = function () {
-    $('[data-perfectscroll="true"]').each(function () {
+    $('[data-perfect-scrollbar="true"]').each(function () {
       var el = $(this)
 
       KTUtil.scrollInit(this, {

@@ -10,3 +10,14 @@
 .checkbox > span {
   margin-right: 0.75rem;
 }
+
+.select-none {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+
+  pointer-events:none;
+}

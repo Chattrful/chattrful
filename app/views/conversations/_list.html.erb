@@ -1,21 +1,22 @@
 <div class="conversation-list">
   <% conversations.each do |conversation| %>
-    <%= link_to conversation, class: "conversation-list__item d-flex align-items-center justify-content-between p-3 #{active == conversation ? "conversation-list__item--active" : ""}" do %>
+    <a href="javascript:void(0)" class="conversation-list__item d-flex align-items-center justify-content-between p-3 <%= active == conversation ? "conversation-list__item--active" : "" %>" data-id="<%= conversation.id %>">
       <div class="d-flex align-items-center">
         <div class="d-flex flex-column">
-          <span href="#" class="text-dark-75 font-weight-bold font-size-lg">
+          <span href="#" class="text-dark-75 font-weight-bold font-size-lg select-none">
             <%= conversation.starter.name %>
           </span>
-          <span class="text-muted font-weight-bold font-size-sm">
+          <span class="text-muted font-weight-bold font-size-sm select-none">
             <%= conversation.last_message_sender.name %>: <%= conversation.last_message_content %>
           </span>
         </div>
       </div>
+
       <div class="d-flex flex-column align-items-end">
-        <span class="text-muted font-weight-bold font-size-sm">
+        <span class="text-muted font-weight-bold font-size-sm select-none">
           <%= conversation_latest_timestamp(timestamp: conversation.last_message_received_at, time_zone: current_user.time_zone) %>
         </span>
       </div>
-    <% end %>
+    </a>
   <% end %>
 </div>

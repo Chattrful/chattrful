@@ -22,7 +22,11 @@
     </div>
   </header>
 
-  <div class="chat-messages js-chat-messages" data-last-message-id="" data-url="<%= visitor ? nil : ajax_conversation_messages_path(@conversation.uuid, format: :js) %>" data-scroll="true"></div>
+  <div class="chat-messages js-chat-messages" data-last-message-id="" data-url="<%= visitor ? nil : ajax_conversation_messages_path(@conversation.uuid, format: :js) %>" data-scroll="true">
+    <div class="chat-messages__scrolling-spinner">
+      <div class="spinner"></div>
+    </div>
+  </div>
 
   <footer class="chat-widget__footer">
     <div class="emojis">
