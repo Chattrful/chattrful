@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="d-flex flex-row h-100 position-relative">
-  <div class="flex-row-auto w-lg-350px w-xl-400px mobile-conversation-list">
+  <div class="flex-row-auto w-100 w-lg-350px w-xl-400px mobile-conversation-list">
     <div class="card card-custom h-100">
       <div class="card-body p-0 position-relative conversation-list-container">
         <div class="conversation-list__header p-5 border-bottom">
@@ -27,10 +27,10 @@
     </div>
   </div>
 
-  <div class="flex-row-fluid ml-lg-8 js-chat-widget-container mobile-conversation-chat-widget">
+  <div class="flex-row-fluid ml-lg-8 js-chat-widget-container mobile-conversation-chat-widget offcanvas-mobile offcanvas-mobile-right">
     <div class="card card-custom h-100">
       <div class="card-body p-3 d-flex align-items-center justify-content-center">
-        <div class="text-center">
+        <div class="text-center d-none d-lg-block">
           <% if @conversations.present? %>
             <h1>You have open conversations</h1>
             <%= image_tag "conversations/active_conversations.png", class: "img-fluid w-75 d-block m-auto" %>
