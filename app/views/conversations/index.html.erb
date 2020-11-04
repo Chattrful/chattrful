@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="conversation-list__body">
-          <%= render 'list', conversations: @conversations, active: nil %>
+          <%= render partial: 'conversation', collection: @conversations, cached: true %>
         </div>
       </div>
     </div>

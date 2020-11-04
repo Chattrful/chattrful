@@ -1,4 +1,5 @@
 import Breakpoints from 'custom/breakpoints'
+import Truncate from './truncate'
 
 document.addEventListener("turbolinks:load", () => {
   const mobileConversationChatWidget = document.querySelector('.mobile-conversation-chat-widget')
@@ -28,4 +29,6 @@ document.addEventListener("turbolinks:load", () => {
       mobileConversationChatWidget.innerHTML = ''
     })
   }
+
+  Truncate()
 })

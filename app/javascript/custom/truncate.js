@@ -1,4 +1,4 @@
-document.addEventListener("turbolinks:load", () => {
+export default function Truncate () {
   const truncates = document.querySelectorAll('.js-truncate')
 
   truncates.forEach(truncate => {
@@ -9,4 +9,4 @@ document.addEventListener("turbolinks:load", () => {
     const width = truncateParent.offsetWidth
     truncate.style.width = `${width - offset.offsetWidth - padding}px`
   })
-})
+}

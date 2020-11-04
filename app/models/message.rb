@@ -12,8 +12,8 @@ class Message < ApplicationRecord
 
   validates :content, presence: true
 
-  after_commit :broadcast_message
   after_create :touch_conversation
+  after_commit :broadcast_message
 
   def sender_identifier
     Digest::SHA256.hexdigest("#{SALT}#{sender_type}#{sender_id}")
@@ -26,7 +26,7 @@ class Message < ApplicationRecord
   end
 
   def touch_conversation
-    conversation.update_columns(
+    conversation.update(
       last_message_received_at: created_at,
       last_message_content: content,
       last_message_sender_type: sender_type,

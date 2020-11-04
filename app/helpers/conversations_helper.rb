@@ -3,7 +3,7 @@ module ConversationsHelper
     timestamp_in_time_zone = timestamp.in_time_zone(time_zone)
     current_timestamp_in_time_zone = Time.current.in_time_zone(time_zone)
 
-    if timestamp_in_time_zone.today?
+    if timestamp_in_time_zone.to_date == current_timestamp_in_time_zone.to_date
       message_timestamp(timestamp: timestamp, time_zone: time_zone)
     elsif timestamp_in_time_zone.to_date == current_timestamp_in_time_zone.yesterday.to_date
       "yesterday"

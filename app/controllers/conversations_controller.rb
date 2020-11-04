@@ -6,7 +6,6 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = current_account.conversations.latest.includes(:starter, :last_message_sender)
-    @conversation = @conversations.first
   end
 
   def show

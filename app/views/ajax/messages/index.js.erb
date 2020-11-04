@@ -3,11 +3,10 @@ var chatMessages = document.querySelector('.js-chat-messages')
 document.querySelector('.chat-messages__scrolling-spinner').remove()
 
 <% if @messages.present? %>
-  <% @messages.each do |message| %>
-    var tempHTML = document.createElement('div')
-    tempHTML.innerHTML = '<%= j render 'messages/message', message: message, user: @user, cached: true %>'
-    chatMessages.prepend(tempHTML.firstElementChild)
-  <% end %>
+  var tempHTML = document.createElement('div')
+  var collectionHTML = '<%= j(render partial: 'messages/message', collection: @messages, locals: { user: @user }, cached: true) %>'
+  tempHTML.innerHTML = collectionHTML
+  Array.from(tempHTML.children).forEach(messageNode => chatMessages.prepend(messageNode))
 
   chatMessages.dataset.lastMessageId = <%= @messages.last.id %>
 <% else %>
