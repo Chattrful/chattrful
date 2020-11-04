@@ -8,6 +8,14 @@
 
 <div class="chat-widget">
   <header tabindex="-1" class="chat-widget__header">
+    <% unless visitor %>
+      <div class="mr-3 d-lg-none">
+        <button class="btn-icon btn-icon--rounded js-mobile-close-chat-widget">
+          <i class="far fa-arrow-left text-gray-600"></i>
+        </button>
+      </div>
+    <% end %>
+
     <div class="chat-widget__header-details">
       <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
       <div>

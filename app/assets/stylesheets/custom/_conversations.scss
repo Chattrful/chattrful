@@ -56,3 +56,31 @@
     }
   }
 }
+
+.mobile-conversation-list {
+  @include media-breakpoint-down(md) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.mobile-conversation-chat-widget {
+  will-change: transform;
+
+  @include media-breakpoint-down(md) {
+    transition: transform 0.5s ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    transform: translateX(150%);
+
+    &--open {
+      transform: translateX(0%);
+    }
+  }
+}

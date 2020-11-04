@@ -7,6 +7,7 @@ import ExecuteScript from '../util/execute_script'
 import InitVisitorAccount from '../chat_widget/init_visitor_account'
 import ConversationChannel from '../chat_widget/conversation_channel'
 import Rails from '@rails/ujs'
+import Breakpoints from 'custom/breakpoints'
 
 document.addEventListener('turbolinks:load', () => {
   const handleSubmit = () => {
@@ -47,8 +48,6 @@ document.addEventListener('turbolinks:load', () => {
     form.action = data.messages_path
   }
 
-  const isMobileOrTablet = () => window.innerWidth < 992
-
   let emojiPicker
   let infinieScroll
   let subscription
@@ -80,7 +79,7 @@ document.addEventListener('turbolinks:load', () => {
       // When enter is pressed
       if (event.keyCode == 13) {
         // If shift is pressed, don't submit
-        if (!isMobileOrTablet() && !event.shiftKey) {
+        if (!Breakpoints.isMobileOrTablet() && !event.shiftKey) {
           handleSubmit()
           event.preventDefault()
         }
@@ -187,7 +186,7 @@ document.addEventListener('turbolinks:load', () => {
       fetch(`/conversations/${id}.js`)
         .then(response => response.json())
         .then(data => {
-          document.querySelector('.chat-widget-container').innerHTML = data.html
+          document.querySelector('.js-chat-widget-container').innerHTML = data.html
           chatboxTextarea = document.querySelector('.js-chatbox')
           chatMessages = document.querySelector('.js-chat-messages')
           chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
