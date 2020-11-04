@@ -25,6 +25,7 @@ document.addEventListener("turbolinks:load", () => {
       })
 
       mobileConversationChatWidget.classList.remove('offcanvas-mobile-on')
+      mobileConversationChatWidget.innerHTML = ''
     })
   }
 })
