@@ -11,10 +11,6 @@ class ConversationsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html do
-        @conversations = current_account.conversations.latest.includes(:starter, :last_message_sender)
-      end
-
       format.js do
         render json: {
           html: (render_to_string partial: "show", locals: {visitor: false})

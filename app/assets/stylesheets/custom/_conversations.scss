@@ -1,14 +1,19 @@
+.conversation-list-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
 .conversation-list {
-  position: absolute;
-  left: 0;
-  right: 0;
+  &__body {
+    flex: 1 1 0;
+
+    @extend .scrollbar;
+    @extend .scrollbar-y;
+  }
 
   &__item {
-    &:first-child {
-      border-top-left-radius: 0.42rem;
-      border-top-right-radius: 0.42rem;
-    }
-
     &:hover {
       background: rgba(54, 153, 255, 0.1);
     }
@@ -26,6 +31,27 @@
 
       &:hover {
         background: $primary;
+      }
+    }
+  }
+}
+
+.conversations {
+  .chat-widget {
+    border-radius: 0.42rem;
+
+    &__header {
+      border-top-right-radius: 0.42rem;
+      border-top-left-radius: 0.42rem;
+    }
+
+    &__footer {
+      border-bottom-right-radius: 0.42rem;
+      border-bottom-left-radius: 0.42rem;
+
+      .chatbox {
+        border-bottom-right-radius: 0.42rem;
+        border-bottom-left-radius: 0.42rem;
       }
     }
   }

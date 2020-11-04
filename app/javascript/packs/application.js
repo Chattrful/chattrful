@@ -18,6 +18,7 @@ import 'bootstrap'
 require('metronic/components/app')
 require('metronic/layout/initialize')
 require('custom/conversations')
+require('custom/truncate')
 
 document.addEventListener("DOMContentLoaded", () => {
   const $flashMessage = $(".flash-message")
