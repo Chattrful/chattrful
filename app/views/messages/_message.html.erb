@@ -22,7 +22,7 @@
         <div class="chat-messages__item-timestamp-spacer"></div>
       </div>
 
-      <div class="chat-messages__item-timestamp">
+      <div class="chat-messages__item-timestamp" data-timestamp="<%= message.created_at.to_i %>">
         <%= message_timestamp(timestamp: message.created_at, time_zone: user&.time_zone) %>
       </div>
     </div>

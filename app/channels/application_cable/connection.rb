@@ -21,13 +21,7 @@ module ApplicationCable
     end
 
     def verified_user
-      env["rack.session"] = cookies.encrypted[Rails.application.config.session_options[:key]]
-      @verified_user =
-        begin
-          Warden::SessionSerializer.new(env).fetch(:user)
-        rescue
-          nil
-        end
+      @verified_user ||= env["warden"].user(:user)
     end
   end
 end

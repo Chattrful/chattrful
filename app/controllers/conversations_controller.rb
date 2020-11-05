@@ -21,7 +21,7 @@ class ConversationsController < ApplicationController
   private
 
   def set_conversation
-    @conversation = current_account.conversations.find(params[:id])
+    @conversation = current_account.conversations.find_by_uuid(params[:id])
   end
 
   def container_fluid

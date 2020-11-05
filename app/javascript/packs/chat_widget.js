@@ -183,23 +183,27 @@ document.addEventListener('turbolinks:load', () => {
 
   $(document).on('click', '.conversation-list__item', event => {
     const id = event.currentTarget.dataset.id
-    if (subscription) {
-      subscription.unsubscribe()
-    }
+    const currentPageData = document.querySelector('.js-page-data')
 
-    fetch(`/conversations/${id}.js`)
-      .then(response => response.json())
-      .then(data => {
-        document.querySelector('.js-chat-widget-container').innerHTML = data.html
-        chatboxTextarea = document.querySelector('.js-chatbox')
-        chatMessages = document.querySelector('.js-chat-messages')
-        chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
-        emojiTrigger = document.querySelector('.js-emoji-trigger');
-        pageData = document.querySelector('.js-page-data')
-        messageTemplate = pageData.dataset.template
-        form = document.querySelector('.js-chatbox-form')
-        init()
-      })
+    if (!currentPageData || currentPageData.dataset.conversationId != id) {
+      if (subscription) {
+        subscription.unsubscribe()
+      }
+
+      fetch(`/conversations/${id}.js`)
+        .then(response => response.json())
+        .then(data => {
+          document.querySelector('.js-chat-widget-container').innerHTML = data.html
+          chatboxTextarea = document.querySelector('.js-chatbox')
+          chatMessages = document.querySelector('.js-chat-messages')
+          chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
+          emojiTrigger = document.querySelector('.js-emoji-trigger');
+          pageData = document.querySelector('.js-page-data')
+          messageTemplate = pageData.dataset.template
+          form = document.querySelector('.js-chatbox-form')
+          init()
+        })
+    }
   })
   const conversationLists = document.querySelectorAll('.conversation-list__item')
 })

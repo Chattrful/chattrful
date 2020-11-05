@@ -4,7 +4,7 @@ document.querySelector('.chat-messages__scrolling-spinner').remove()
 
 <% if @messages.present? %>
   var tempHTML = document.createElement('div')
-  var collectionHTML = '<%= j(render partial: 'messages/message', collection: @messages, locals: { user: @user }, cached: true) %>'
+  var collectionHTML = '<%= j(render partial: 'messages/message', collection: @messages, locals: { user: @user }) %>'
   tempHTML.innerHTML = collectionHTML
   Array.from(tempHTML.children).forEach(messageNode => chatMessages.prepend(messageNode))
 
