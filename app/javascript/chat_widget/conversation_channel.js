@@ -1,13 +1,9 @@
-import consumer from '../channels/consumer'
-import ScrollToBottom from '../util/scroll_to_bottom'
-import { format } from 'date-fns'
+import consumer from 'channels/consumer'
+import ScrollToBottom from 'util/scroll_to_bottom'
+import Timestamp from 'util/timestamp'
 
 export default function ConversationChannel() {
   const chatMessages = document.querySelector('.js-chat-messages')
-
-  const currentTimestamp = () => {
-    return format(new Date(), 'hh:mm a')
-  }
 
   return (
     consumer.subscriptions.create(
@@ -39,7 +35,7 @@ export default function ConversationChannel() {
 
             const tempHTML = document.createElement('div')
             tempHTML.innerHTML = data.html
-            tempHTML.querySelector('.chat-messages__item-timestamp').innerText = currentTimestamp()
+            tempHTML.querySelector('.chat-messages__item-timestamp').innerText = Timestamp.current()
             chatMessages.append(tempHTML.firstElementChild)
 
             if (shouldScrollBtm) {

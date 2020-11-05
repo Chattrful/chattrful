@@ -5,7 +5,6 @@ class BroadcastMessageWorker < ApplicationWorker
     message = Message.find(message_id)
     conversation = message.conversation
     account = conversation.account
-    conversations = account.conversations.latest.includes(:starter, :last_message_sender)
 
     html = ApplicationController.render(
       partial: "messages/message",
@@ -23,22 +22,19 @@ class BroadcastMessageWorker < ApplicationWorker
       }
     )
 
-    account.users.each do |user|
-      list_html = ApplicationController.render(
-        partial: "conversations/conversation",
-        collection: conversations,
-        locals: {
-          current_user: user
-        },
-        cached: true
-      )
+    list_item_html = ApplicationController.render(
+      partial: "conversations/conversation",
+      locals: {
+        conversation: conversation,
+        current_user: nil
+      }
+    )
 
-      ActionCable.server.broadcast(
-        "conversation_list_channel_#{user.id}",
-        {
-          html: list_html
-        }
-      )
-    end
+    ActionCable.server.broadcast(
+      "conversation_list_channel_#{account.id}",
+      {
+        html: list_item_html
+      }
+    )
   end
 end

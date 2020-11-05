@@ -12,7 +12,7 @@
 
   <div class="d-flex flex-column align-items-end">
     <span class="text-muted font-weight-bold font-size-sm select-none white-space-nowrap pl-2 conversation-list__item-timestamp">
-      <%= conversation_latest_timestamp(timestamp: conversation.last_message_received_at, time_zone: current_user.time_zone) %>
+      <%= conversation_latest_timestamp(timestamp: conversation.last_message_received_at, time_zone: current_user&.time_zone) %>
     </span>
   </div>
 </a>
