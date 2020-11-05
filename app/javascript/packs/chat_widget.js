@@ -7,7 +7,7 @@ import ExecuteScript from '../util/execute_script'
 import InitVisitorAccount from '../chat_widget/init_visitor_account'
 import ConversationChannel from '../chat_widget/conversation_channel'
 import Rails from '@rails/ujs'
-import Breakpoints from 'custom/breakpoints'
+import Breakpoints from 'util/breakpoints'
 
 document.addEventListener('turbolinks:load', () => {
   const handleSubmit = () => {
@@ -173,29 +173,25 @@ document.addEventListener('turbolinks:load', () => {
     init()
   }
 
-  const conversationLists = document.querySelectorAll('.conversation-list__item')
+  $(document).on('click', '.conversation-list__item', event => {
+    const id = event.currentTarget.dataset.id
+    if (subscription) {
+      subscription.unsubscribe()
+    }
 
-  conversationLists.forEach(conversationList => {
-    conversationList.addEventListener('click', event => {
-      const id = event.currentTarget.dataset.id
-
-      if (subscription) {
-        subscription.unsubscribe()
-      }
-
-      fetch(`/conversations/${id}.js`)
-        .then(response => response.json())
-        .then(data => {
-          document.querySelector('.js-chat-widget-container').innerHTML = data.html
-          chatboxTextarea = document.querySelector('.js-chatbox')
-          chatMessages = document.querySelector('.js-chat-messages')
-          chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
-          emojiTrigger = document.querySelector('.js-emoji-trigger');
-          pageData = document.querySelector('.js-page-data')
-          messageTemplate = pageData.dataset.template
-          form = document.querySelector('.js-chatbox-form')
-          init()
-        })
-    })
+    fetch(`/conversations/${id}.js`)
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector('.js-chat-widget-container').innerHTML = data.html
+        chatboxTextarea = document.querySelector('.js-chatbox')
+        chatMessages = document.querySelector('.js-chat-messages')
+        chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
+        emojiTrigger = document.querySelector('.js-emoji-trigger');
+        pageData = document.querySelector('.js-page-data')
+        messageTemplate = pageData.dataset.template
+        form = document.querySelector('.js-chatbox-form')
+        init()
+      })
   })
+  const conversationLists = document.querySelectorAll('.conversation-list__item')
 })

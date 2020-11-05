@@ -1,5 +1,5 @@
 import consumer from './consumer'
-import Truncate from '../custom/truncate'
+import Truncate from 'util/truncate'
 
 document.addEventListener("turbolinks:load", () => {
   consumer.subscriptions.create({

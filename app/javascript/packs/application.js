@@ -16,8 +16,7 @@ import 'bootstrap'
 // require('./chat_widget')
 require('metronic/components/app')
 require('metronic/layout/initialize')
-require('custom/conversations')
-require('custom/truncate')
+require('pages/conversations')
 
 document.addEventListener("DOMContentLoaded", () => {
   const $flashMessage = $(".flash-message")
