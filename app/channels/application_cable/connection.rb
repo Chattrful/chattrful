@@ -21,13 +21,17 @@ module ApplicationCable
     end
 
     def verified_user
-      env["rack.session"] = cookies.encrypted[Rails.application.config.session_options[:key] || raise("No cookies key in config")]
-      puts "User: #{Warden::SessionSerializer.new(env).fetch(:user).id}"
-      puts "_" * 50
+      warden_user_data = cookies.encrypted[:_chattrful_session]["warden.user.user.key"]
 
-      Rails.logger.debug "Rails logger User: #{Warden::SessionSerializer.new(env).fetch(:user).id}"
-      Rails.logger.debug "Rails logger: #{"_" * 50}"
-      Warden::SessionSerializer.new(env).fetch(:user)
+      if warden_user_data
+        user_id = warden_user_data[0].first
+        user_partial_encrypted_password = warden_user_data[1]
+        user = User.find(user_id)
+
+        if user && user.encrypted_password[0, 29] == user_partial_encrypted_password
+          user
+        end
+      end
     end
   end
 end
