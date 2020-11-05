@@ -21,17 +21,7 @@ module ApplicationCable
     end
 
     def verified_user
-      warden_user_data = cookies.encrypted[:_chattrful_session]["warden.user.user.key"]
-
-      if warden_user_data
-        user_id = warden_user_data[0].first
-        user_partial_encrypted_password = warden_user_data[1]
-        user = User.find(user_id)
-
-        if user && user.encrypted_password[0, 29] == user_partial_encrypted_password
-          user
-        end
-      end
+      @verified_user ||= env["warden"].user(:user)
     end
   end
 end
