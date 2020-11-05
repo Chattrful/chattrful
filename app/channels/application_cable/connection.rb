@@ -21,6 +21,7 @@ module ApplicationCable
     end
 
     def verified_user
+      Rails.logger.info = env["warden"].user(:user)
       @verified_user ||= env["warden"].user(:user)
     end
   end
