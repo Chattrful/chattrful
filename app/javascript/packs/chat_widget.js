@@ -142,10 +142,18 @@ document.addEventListener('turbolinks:load', () => {
 
   const init = async () => {
     chatMessages.querySelector('.chat-messages__scrolling-spinner').remove()
+
     if (pageData.dataset.identifier.length < 1) {
       const initVisitorConversationResponse = await InitVisitorAccount()
       const visitorAccountData = await initVisitorConversationResponse.json()
       handleVisitorAccountData(visitorAccountData)
+    } else {
+      const timeZoneOffset = - new Date().getTimezoneOffset() / 60
+      const initUserTimeZoneResponse = await fetch(
+        `/ajax/profile/time_zone?time_zone_offset=${timeZoneOffset}`,
+        { method: 'POST' }
+      )
+      await initUserTimeZoneResponse.text()
     }
 
     initChatboxTextarea()
