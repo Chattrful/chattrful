@@ -26,7 +26,6 @@ export default function ConversationChannel() {
           const identifier = document.querySelector('.js-page-data').dataset.identifier
 
           if (identifier != data.sender_identifier) {
-
             let shouldScrollBtm = false
             // https://medium.com/beamdental/scrolltop-and-other-bugs-the-never-ending-battle-against-bugs-4815e6a2b00a
             if (chatMessages.scrollHeight - Math.ceil(chatMessages.scrollTop) <= chatMessages.clientHeight) {
