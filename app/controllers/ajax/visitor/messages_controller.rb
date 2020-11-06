@@ -14,7 +14,13 @@ module Ajax::Visitor
         end
 
       respond_to do |format|
-        format.js { render "ajax/messages/index.js.erb" }
+        format.js do
+          render json: {
+            html: (render_to_string partial: "messages/message", collection: @messages, cached: true),
+            last_message_id: @messages.last&.id,
+            previous_last_message_id: params[:last_message_id]
+          }
+        end
       end
     end
 

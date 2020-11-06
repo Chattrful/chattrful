@@ -10,13 +10,13 @@ export default class InfiniteScroll {
 
   init() {
     this.chatMessages.addEventListener('scroll', async() => {
-      if (!this.scrolling && this.chatMessages.scrollTop < 200 && this.chatMessages.dataset.scroll == "true" ) {
+      if (!this.scrolling && this.chatMessages.scrollTop < 200 && this.chatMessages.dataset.scroll == "true") {
         this.scrolling = true
-        const lastMessageId = this.chatMessages.dataset.lastMessageId
 
-        const fetchMessagesResponse = await FetchMessages({lastMessageId: lastMessageId})
-        const text = await fetchMessagesResponse.text()
-        ExecuteScript({text: text})
+        const lastMessageId = parseInt(this.chatMessages.dataset.lastMessageId)
+        const fetchMessagesResponse = await FetchMessages.fetch({lastMessageId: lastMessageId})
+        const data = await fetchMessagesResponse.json()
+        FetchMessages.handleResponse(data)
 
         this.scrolling = false
       }

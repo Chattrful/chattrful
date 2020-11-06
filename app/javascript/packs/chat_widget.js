@@ -163,9 +163,9 @@ document.addEventListener('turbolinks:load', () => {
 
     subscription = ConversationChannel()
 
-    const fetchMessagesResponse = await FetchMessages()
-    const text = await fetchMessagesResponse.text()
-    ExecuteScript({text: text})
+    const fetchMessagesResponse = await FetchMessages.fetch()
+    const data = await fetchMessagesResponse.json()
+    FetchMessages.handleResponse(data)
 
     ScrollToBottom({
       element: chatMessages,
