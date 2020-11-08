@@ -8,6 +8,7 @@ import InitVisitorAccount from '../chat_widget/init_visitor_account'
 import ConversationChannel from '../chat_widget/conversation_channel'
 import Rails from '@rails/ujs'
 import Breakpoints from 'util/breakpoints'
+import DOMHelper from 'util/dom_helper'
 
 document.addEventListener('turbolinks:load', () => {
   const handleSubmit = () => {
@@ -31,6 +32,14 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   const appendContent = (content, timestamp) => {
+    let dateElement = document.querySelector(`[data-date="Today"]`)
+
+    if (!dateElement) {
+      let dateHTML = `<div data-date="Today" class="chat-messages__date"><span class="label label-inline">Today</span></div>`
+      DOMHelper.append({ parent: chatMessages, html: dateHTML })
+      dateElement = document.querySelector(`[data-date="Today"]`)
+    }
+
     const element = document.createElement('html');
     element.innerHTML = messageTemplate
     const chatMessage = element.querySelector('.chat-messages__item')

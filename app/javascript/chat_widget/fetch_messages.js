@@ -77,7 +77,6 @@ const FetchMessages = (function () {
           }
 
           chatMessages.insertBefore(message, dateElement.nextSibling)
-          // chatMessages.prepend(message)
         })
 
         chatMessages.dataset.lastMessageId = data.last_message_id
