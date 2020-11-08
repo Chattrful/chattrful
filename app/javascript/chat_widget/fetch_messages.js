@@ -1,5 +1,11 @@
 import DOMHelper from 'util/dom_helper'
-import Timestamp from 'util/timestamp'
+import DateTimeHelper from 'util/date_time_helper'
+import startOfDay from 'date-fns/startOfDay'
+import add from 'date-fns/add'
+import isWithinInterval from 'date-fns/isWithinInterval'
+import endOfDay from 'date-fns/endOfDay'
+import isToday from 'date-fns/isToday'
+import isYesterday from 'date-fns/isYesterday'
 
 const createSpinner = () => {
   const chatMessages = document.querySelector('.js-chat-messages')
@@ -8,6 +14,20 @@ const createSpinner = () => {
     parent: chatMessages,
     html: '<div class="chat-messages__scrolling-spinner"><div class="spinner"></div></div>'
   })
+}
+
+const getFormattedDate = ({timestamp, withinRangeStart, withinRangeEnd}) => {
+  const formattedTimestamp = startOfDay(timestamp)
+
+  if (isToday(formattedTimestamp)) {
+    return 'Today'
+  } else if (isYesterday(formattedTimestamp)) {
+    return 'Yesterday'
+  } else if (isWithinInterval(formattedTimestamp, { start: withinRangeStart, end: withinRangeEnd })) {
+    return DateTimeHelper.formatDayOfWeek(formattedTimestamp)
+  } else {
+    return DateTimeHelper.formatDate(formattedTimestamp)
+  }
 }
 
 const FetchMessages = (function () {
@@ -23,6 +43,9 @@ const FetchMessages = (function () {
     },
 
     handleResponse: function(data) {
+      const today = startOfDay(new Date())
+      const withinRangeStart = startOfDay(add(today, { days: -6 }))
+      const withinRangeEnd = endOfDay(add(today, { days: -2 }))
       const chatMessages = document.querySelector('.js-chat-messages')
       const identifier = document.querySelector('.js-page-data').dataset.identifier
 
@@ -35,10 +58,26 @@ const FetchMessages = (function () {
           if (message.dataset.messageSender == identifier) {
             message.classList.add('chat-messages__item--mine')
           }
-          const messageTimestamp = message.querySelector('[data-message-timestamp]')
-          const timestamp = Timestamp.fromUnix(messageTimestamp.dataset.messageTimestamp)
-          messageTimestamp.innerHTML = timestamp
-          chatMessages.prepend(message)
+          const messageTimestamp = message.querySelector('.chat-messages__item-timestamp')
+          const timestamp = DateTimeHelper.fromUnix(message.dataset.messageTimestamp)
+          messageTimestamp.innerHTML = DateTimeHelper.formatTimestamp(timestamp)
+
+          const date = getFormattedDate({
+            timestamp: timestamp,
+            withinRangeStart: withinRangeStart,
+            withinRangeEnd: withinRangeEnd
+          })
+
+          let dateElement = document.querySelector(`[data-date="${date}"]`)
+
+          if (!dateElement) {
+            let dateHTML = `<div data-date="${date}" class="chat-messages__date"><span class="label label-inline">${date}</span></div>`
+            DOMHelper.prepend({ parent: chatMessages, html: dateHTML })
+            dateElement = document.querySelector(`[data-date="${date}"]`)
+          }
+
+          chatMessages.insertBefore(message, dateElement.nextSibling)
+          // chatMessages.prepend(message)
         })
 
         chatMessages.dataset.lastMessageId = data.last_message_id

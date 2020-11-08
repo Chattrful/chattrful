@@ -1,6 +1,6 @@
 import consumer from './consumer'
 import Truncate from 'util/truncate'
-import Timestamp from 'util/timestamp'
+import DateTimeHelper from 'util/date_time_helper'
 
 document.addEventListener("turbolinks:load", () => {
   const conversationList = document.querySelector('.conversation-list__body')
@@ -23,7 +23,7 @@ document.addEventListener("turbolinks:load", () => {
         received (data) {
           const tempHTML = document.createElement('div')
           tempHTML.innerHTML = data.html
-          tempHTML.querySelector('.conversation-list__item-timestamp').innerText = Timestamp.current()
+          tempHTML.querySelector('.conversation-list__item-timestamp').innerText = DateTimeHelper.formatTimestamp(new Date())
           const newConversationListItem = tempHTML.querySelector('.conversation-list__item')
 
           let existingConversationListItem = conversationList.querySelector(`.conversation-list__item[data-id="${newConversationListItem.dataset.id}"]`)

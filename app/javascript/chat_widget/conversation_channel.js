@@ -1,6 +1,6 @@
 import consumer from 'channels/consumer'
 import ScrollToBottom from 'util/scroll_to_bottom'
-import Timestamp from 'util/timestamp'
+import DateTimeHelper from 'util/date_time_helper'
 
 export default function ConversationChannel() {
   const chatMessages = document.querySelector('.js-chat-messages')
@@ -34,7 +34,7 @@ export default function ConversationChannel() {
 
             const tempHTML = document.createElement('div')
             tempHTML.innerHTML = data.html
-            tempHTML.querySelector('.chat-messages__item-timestamp').innerText = Timestamp.current()
+            tempHTML.querySelector('.chat-messages__item-timestamp').innerText = DateTimeHelper.formatTimestamp(new Date())
             chatMessages.append(tempHTML.firstElementChild)
 
             if (shouldScrollBtm) {
