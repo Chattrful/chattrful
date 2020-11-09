@@ -12,8 +12,22 @@
     </div>
   </div>
 <% else %>
-  <div tabindex="-1" class="chat-messages__item <%= 'chat-messages__item--mine' if defined?(user) && user && message.sender == user %>" data-message-id="<%= message.id %>" data-message-sender="<%= message.sender.identifier %>" data-message-timestamp="<%= message.created_at.to_i %>">
+  <div tabindex="-1"
+       class="chat-messages__item <%= 'chat-messages__item--mine' if defined?(user) && user && message.sender == user %>"
+       data-message-id="<%= message.id %>"
+       data-message-sender="<%= message.sender.identifier %>"
+       data-message-timestamp="<%= message.created_at.to_i %>"
+  >
+    <div class="chat-messages__item-avatar">
+      <% if message.sender.is_a?(User) %>
+        <%= user_avatar(user: message.sender) %>
+      <% else %>
+        <%= visitor_avatar(visitor: message.sender) %>
+      <% end %>
+    </div>
+
     <div class="chat-messages__item-content">
+
       <div>
         <span class="chat-messages__item-text">
           <%= markup(message.content) %>

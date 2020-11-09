@@ -7,10 +7,8 @@
     <div class="topbar">
       <div class="dropdown">
         <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-          <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2 dropdown-toggle" id="kt_quick_user_toggle">
-            <span class="symbol symbol-lg-35 symbol-25 symbol-light-success symbol-circle">
-              <span class="symbol-label font-size-h5 font-weight-bold"><%= user_initials(user: current_user) %></span>
-            </span>
+          <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2 dropdown-toggle">
+            <%= user_avatar(user: current_user) %>
           </div>
         </div>
 

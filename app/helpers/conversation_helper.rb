@@ -1,4 +1,4 @@
-module ConversationsHelper
+module ConversationHelper
   def conversation_latest_timestamp(timestamp:, time_zone:)
     timestamp_in_time_zone = timestamp.in_time_zone(time_zone)
     current_timestamp_in_time_zone = Time.current.in_time_zone(time_zone)

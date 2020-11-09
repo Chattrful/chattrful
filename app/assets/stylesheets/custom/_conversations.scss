@@ -57,6 +57,15 @@
   }
 }
 
+.visitor-icon-svg {
+  height: 60%;
+  width: 60%;
+
+  path {
+    fill: $gray-600;
+  }
+}
+
 // .mobile-conversation-list {
 //   @include media-breakpoint-down(md) {
 //     position: absolute;
