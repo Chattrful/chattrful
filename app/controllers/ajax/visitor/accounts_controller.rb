@@ -2,6 +2,10 @@
 
 module Ajax::Visitor
   class AccountsController < VisitorController
+    include ConversationHelper
+    include VisitorHelper
+    include UserHelper
+
     def create
       visitor_account = VisitorAccountService.new(
         time_zone_offset: permitted_params[:time_zone_offset],
@@ -20,6 +24,7 @@ module Ajax::Visitor
             chattrful_session: visitor_account.chattrful_session,
             conversation_id: visitor_account.conversation.uuid,
             identifier: visitor_account.visitor.identifier,
+            avatars: conversation_avatars(conversation: visitor_account.conversation),
             messages_path: ajax_visitor_account_conversation_messages_path(
               current_account,
               visitor_account.conversation.uuid,

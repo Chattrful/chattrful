@@ -5,7 +5,11 @@ class ConversationsController < ApplicationController
   before_action :container_fluid
 
   def index
-    @conversations = current_account.conversations.latest.includes(:starter, :last_message_sender)
+    @conversations =
+      current_account
+        .conversations
+        .latest
+        .includes(participants: [:sender], last_message: [:sender])
   end
 
   def show

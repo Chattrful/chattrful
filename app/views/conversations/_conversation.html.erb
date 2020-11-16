@@ -2,10 +2,10 @@
   <div class="d-flex align-items-center">
     <div class="d-flex flex-column">
       <span href="#" class="text-dark-75 font-weight-bold font-size-lg select-none truncate js-truncate" data-truncate-parent=".conversation-list__item" data-truncate-offset=".conversation-list__item-timestamp">
-        <%= conversation.starter.name %>
+        <%= conversation.starter&.name %>
       </span>
       <span class="text-muted font-weight-bold font-size-sm select-none truncate js-truncate" data-truncate-parent=".conversation-list__item" data-truncate-offset=".conversation-list__item-timestamp">
-        <%= conversation.last_message_sender.name %>: <%= conversation.last_message_content %>
+        <%= conversation.last_message.sender.name %>: <%= conversation.last_message.content %>
       </span>
     </div>
   </div>

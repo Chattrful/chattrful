@@ -10,9 +10,10 @@ class Message < ApplicationRecord
   belongs_to :sender, polymorphic: true
   belongs_to :conversation
 
-  validates :content, presence: true
+  validates :content, :conversation, presence: true
 
   after_create :touch_conversation
+  after_create :create_participant
   after_commit :broadcast_message
 
   def sender_identifier
@@ -28,9 +29,11 @@ class Message < ApplicationRecord
   def touch_conversation
     conversation.update(
       last_message_received_at: created_at,
-      last_message_content: content,
-      last_message_sender_type: sender_type,
-      last_message_sender_id: sender_id
+      last_message_id: id
     )
+  end
+
+  def create_participant
+    conversation.create_participant(sender: sender)
   end
 end

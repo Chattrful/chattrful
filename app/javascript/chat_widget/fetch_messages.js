@@ -47,7 +47,9 @@ const FetchMessages = (function () {
       const withinRangeStart = startOfDay(add(today, { days: -6 }))
       const withinRangeEnd = endOfDay(add(today, { days: -2 }))
       const chatMessages = document.querySelector('.js-chat-messages')
-      const identifier = document.querySelector('.js-page-data').dataset.identifier
+      const pageData = document.querySelector('.js-page-data')
+      const identifier = pageData.dataset.identifier
+      const avatars = JSON.parse(pageData.dataset.avatars)
 
       document.querySelector('.chat-messages__scrolling-spinner').remove()
 
@@ -58,6 +60,10 @@ const FetchMessages = (function () {
           if (message.dataset.messageSender == identifier) {
             message.classList.add('chat-messages__item--mine')
           }
+
+          const avatar = avatars[message.dataset.messageSender]
+          message.querySelector('.chat-messages__item-avatar').innerHTML = DOMHelper.decodeHTML({encodedHTML: avatar})
+
           const messageTimestamp = message.querySelector('.chat-messages__item-timestamp')
           const timestamp = DateTimeHelper.fromUnix(message.dataset.messageTimestamp)
           messageTimestamp.innerHTML = DateTimeHelper.formatTimestamp(timestamp)

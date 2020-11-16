@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_053014) do
+ActiveRecord::Schema.define(version: 2020_11_16_064402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,16 +27,10 @@ ActiveRecord::Schema.define(version: 2020_10_30_053014) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "uuid"
     t.datetime "last_message_received_at"
-    t.bigint "starter_id"
-    t.string "starter_type"
-    t.text "last_message_content"
-    t.string "last_message_sender_type"
-    t.bigint "last_message_sender_id"
+    t.bigint "last_message_id"
+    t.integer "conversation_type", default: 0
     t.index ["account_id"], name: "index_conversations_on_account_id"
-    t.index ["last_message_sender_id"], name: "index_conversations_on_last_message_sender_id"
-    t.index ["last_message_sender_type"], name: "index_conversations_on_last_message_sender_type"
-    t.index ["starter_id"], name: "index_conversations_on_starter_id"
-    t.index ["starter_type"], name: "index_conversations_on_starter_type"
+    t.index ["last_message_id"], name: "index_conversations_on_last_message_id"
     t.index ["uuid"], name: "index_conversations_on_uuid"
   end
 
@@ -50,6 +44,17 @@ ActiveRecord::Schema.define(version: 2020_10_30_053014) do
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
     t.index ["sender_type"], name: "index_messages_on_sender_type"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.bigint "sender_id"
+    t.string "sender_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_participants_on_conversation_id"
+    t.index ["sender_id"], name: "index_participants_on_sender_id"
+    t.index ["sender_type"], name: "index_participants_on_sender_type"
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,5 +91,6 @@ ActiveRecord::Schema.define(version: 2020_10_30_053014) do
 
   add_foreign_key "conversations", "accounts"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "participants", "conversations"
   add_foreign_key "users", "accounts"
 end

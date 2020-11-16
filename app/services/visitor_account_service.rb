@@ -59,6 +59,6 @@ class VisitorAccountService
   end
 
   def create_conversation
-    Conversation.create(account: account, starter: visitor)
+    Conversation.create(account: account)
   end
 end

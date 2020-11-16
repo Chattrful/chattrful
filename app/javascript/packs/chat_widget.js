@@ -53,6 +53,7 @@ document.addEventListener('turbolinks:load', () => {
     localStorage.setItem('chattrful_session', data.chattrful_session)
     pageData.dataset.identifier = data.identifier
     pageData.dataset.conversationId = data.conversation_id
+    pageData.dataset.avatars = JSON.stringify(data.avatars)
     chatMessages.dataset.url = data.messages_path
     form.action = data.messages_path
   }

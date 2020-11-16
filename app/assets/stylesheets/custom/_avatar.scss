@@ -1,0 +1,63 @@
+.avatar {
+  display: inline-block;
+  border-radius: 50%;
+  font-size: 1em;
+  font-weight: bold;
+  width: 25px;
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: transparent;
+
+  &--style-1 {
+    background: #C9F7F5;
+    color: $black !important;
+  }
+
+  &--svg, &--img {
+    background: none;
+  }
+
+  svg {
+    width: 25px;
+    height: 25px;
+    background: $white;
+    border-radius: 50%;
+
+    path {
+      fill: $gray-500;
+    }
+  }
+
+  img {
+    max-width: 25px;
+    width: 100%;
+    height: 25px;
+    border-radius: 50%;
+  }
+
+  @media (min-width: 1199.98px) {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.2em;
+
+    svg {
+      width: 35px;
+      height: 35px;
+    }
+
+    img {
+      max-width: 35px;
+      height: 35px;
+    }
+  }
+}
+

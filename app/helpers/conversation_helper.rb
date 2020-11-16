@@ -13,4 +13,21 @@ module ConversationHelper
       timestamp_in_time_zone.strftime("%m/%d/%Y")
     end
   end
+
+  def sender_avatar(sender:)
+    if sender.is_a?(User)
+      user_avatar(user: sender)
+    else
+      visitor_avatar(visitor: sender)
+    end
+  end
+
+  def conversation_avatars(conversation:)
+    Hash[
+      conversation.participants.includes(:sender).map do |participant|
+        sender = participant.sender
+        [sender.identifier, CGI.escapeHTML(sender_avatar(sender: sender))]
+      end
+    ]
+  end
 end

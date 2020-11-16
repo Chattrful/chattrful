@@ -3,6 +3,7 @@
       data-template="<%= CGI.escapeHTML(render partial: "messages/message", locals: { template: true }).html_safe %>"
       data-identifier="<%= visitor ? nil : current_user.identifier %>"
       data-conversation-id="<%= visitor ? nil : @conversation.uuid %>"
+      data-avatars="<%= visitor ? {} : conversation_avatars(conversation: @conversation).to_json %>"
 >
 </span>
 

@@ -4,10 +4,11 @@ module UserHelper
   end
 
   def user_avatar(user:)
-    "<span class='symbol symbol-lg-35 symbol-25 symbol-light-success symbol-circle'>
-      <span class='symbol-label font-size-h5 font-weight-bold'>
-        #{user_initials(user: user)}
-      </span>
+    "<span class='avatar avatar--style-1'>
+      #{user_initials(user: user)}
     </span>".html_safe
+    # "<span class='avatar'>
+    #   #{image_tag("devise/login.png")}
+    # </span>".html_safe
   end
 end
