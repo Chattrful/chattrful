@@ -19,6 +19,14 @@ class ConversationsController < ApplicationController
           html: (render_to_string partial: "show", locals: {visitor: false})
         }
       end
+
+      format.html do
+        @conversations =
+          current_account
+            .conversations
+            .latest
+            .includes(participants: [:sender], last_message: [:sender])
+      end
     end
   end
 

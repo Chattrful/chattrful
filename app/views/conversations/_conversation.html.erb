@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" class="conversation-list__item d-flex align-items-center justify-content-between p-3" data-id="<%= conversation.uuid %>">
+<a href="javascript:void(0)" class="conversation-list__item d-flex align-items-center justify-content-between p-3 <%= 'conversation-list__item--active' if conversation == @conversation %>" data-id="<%= conversation.uuid %>" data-url="<%= conversation_path(conversation.uuid) %>">
   <div class="d-flex align-items-center">
     <div class="d-flex flex-column">
       <span href="#" class="text-dark-75 font-weight-bold font-size-lg select-none truncate js-truncate" data-truncate-parent=".conversation-list__item" data-truncate-offset=".conversation-list__item-timestamp">

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     namespace :profile do
       resource :time_zone, only: :create
     end
-    resources :conversations, only: [], constraints: {format: "js"} do
+    resources :conversations, only: [] do
       resources :messages, only: [:index, :create], constraints: {format: "js"}
     end
   end

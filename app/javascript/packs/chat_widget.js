@@ -141,13 +141,30 @@ document.addEventListener('turbolinks:load', () => {
     })
   }
 
-  const initForm= () => {
+  const initForm = () => {
     form.addEventListener('ajax:error', event => {
       let timestamp = form.querySelector('.js-timestamp-input').value
       let chatMessage = document.querySelector(`[data-timestamp="${timestamp}"]`)
       chatMessage.querySelector('.spinner').remove()
       chatMessage.querySelector('.chat-messages__item-timestamp').innerHTML = errorSvg
     })
+  }
+
+  const fetchConversation = (id) => {
+    console.log('fetched id')
+    fetch(`/conversations/${id}.js`)
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector('.js-chat-widget-container').innerHTML = data.html
+        chatboxTextarea = document.querySelector('.js-chatbox')
+        chatMessages = document.querySelector('.js-chat-messages')
+        chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
+        emojiTrigger = document.querySelector('.js-emoji-trigger');
+        pageData = document.querySelector('.js-page-data')
+        messageTemplate = pageData.dataset.template
+        form = document.querySelector('.js-chatbox-form')
+        init()
+      })
   }
 
   const init = async () => {
@@ -200,20 +217,22 @@ document.addEventListener('turbolinks:load', () => {
         subscription.unsubscribe()
       }
 
-      fetch(`/conversations/${id}.js`)
-        .then(response => response.json())
-        .then(data => {
-          document.querySelector('.js-chat-widget-container').innerHTML = data.html
-          chatboxTextarea = document.querySelector('.js-chatbox')
-          chatMessages = document.querySelector('.js-chat-messages')
-          chatboxSubmitButton = document.querySelector('.js-chatbox-submit')
-          emojiTrigger = document.querySelector('.js-emoji-trigger');
-          pageData = document.querySelector('.js-page-data')
-          messageTemplate = pageData.dataset.template
-          form = document.querySelector('.js-chatbox-form')
-          init()
-        })
+      fetchConversation(id)
     }
   })
+
+  window.onpopstate = function(event) {
+    if (event.state.usr) {
+      const id = event.state.usr.id
+      fetchConversation(id)
+
+      document.querySelectorAll('.conversation-list__item--active').forEach(conversationList => {
+        conversationList.classList.remove('conversation-list__item--active');
+      })
+
+      document.querySelector(`.conversation-list__item[data-id="${id}"]`).classList.add('conversation-list__item--active')
+    }
+  };
+
   const conversationLists = document.querySelectorAll('.conversation-list__item')
 })
